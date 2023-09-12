@@ -1,0 +1,17 @@
+LICENSE
+README.rst
+setup.cfg
+setup.py
+parsernaam/__init__.py
+parsernaam/model.py
+parsernaam/naam.py
+parsernaam/parse.py
+parsernaam/utils.py
+parsernaam.egg-info/PKG-INFO
+parsernaam.egg-info/SOURCES.txt
+parsernaam.egg-info/dependency_links.txt
+parsernaam.egg-info/entry_points.txt
+parsernaam.egg-info/requires.txt
+parsernaam.egg-info/top_level.txt
+parsernaam/tests/__init__.py
+parsernaam/tests/test_010_name_parser.py

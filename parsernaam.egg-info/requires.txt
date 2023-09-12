@@ -1,0 +1,10 @@
+torch==2.0.1
+pandas==2.0.3
+joblib==1.3.2
+scikit-learn==1.3.0
+
+[dev]
+check-manifest
+
+[test]
+coverage
