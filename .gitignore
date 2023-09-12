@@ -11,7 +11,7 @@ output.csv
 build/
 venv/
 dist/
-naamkaran.egg-info/
+parsernaam.egg-info/
 dev/
 docs/build
 docs/source/_build

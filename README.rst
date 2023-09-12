@@ -14,7 +14,7 @@ For Indian electoral rolls, we assume the last name is the word in the name that
 
 Gradio App.
 -----------
-`Parsarnaam on HF <https://gradio.app/g/appeler/parsarnaam>`_
+`Parsarnaam on HF <https://huggingface.co/spaces/sixtyfold/parsernaam>`_
 
 Installation
 ------------

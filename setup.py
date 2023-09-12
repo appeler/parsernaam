@@ -55,7 +55,7 @@ class Tox(TestCommand):
 
 setup(
     name="parsernaam",
-    version="0.0.1",
+    version="0.0.2",
     description=("Name parser"),
     long_description=long_description,
     # The project's main homepage.
@@ -110,7 +110,7 @@ setup(
     # installed, specify them here.  If using Python 2.6 or less, then these
     # have to be included in MANIFEST.in as well.
     package_data={
-        "naamkaran": [
+        "parsernaam": [
             "notebooks/*.ipynb",
             "models/*.pt",
             "models/*.joblib",
@@ -118,7 +118,7 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            "generate_names=naamkaran.generate:main"
+            "parse_names = parsernaam.parse:main"
         ],
     },
     cmdclass={

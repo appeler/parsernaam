@@ -5,7 +5,7 @@ authors:
   given-names: "Rajashekar" 
 - family-names: "Sood"
   given-names: "Gaurav"
-title: "naamkaran: name generator"
+title: "parsernaam: name parser"
 version: 0.0.1
-date-released: 2023-08-29
+date-released: 2023-09-12
 url: "https://github.com/appeler/parsernaam

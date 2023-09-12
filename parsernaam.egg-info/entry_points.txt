@@ -1,2 +1,0 @@
-[console_scripts]
-generate_names = naamkaran.generate:main
