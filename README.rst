@@ -2,7 +2,7 @@ Parsarnaam: Predict First and Last Name
 -----------------------------------------
 
 .. image:: https://github.com/appeler/parsernaam/actions/workflows/python-package.yml/badge.svg
-    :target: https://github.com/appeler/parsarnaam/actions?query=workflow%3A%22Python+package%22
+    :target: https://github.com/appeler/parsernaam/actions?query=workflow%3A%22Python+package%22
 .. image:: https://img.shields.io/pypi/v/parsarnaam.svg
     :target: https://pypi.python.org/pypi/parsarnaam
 .. image:: https://static.pepy.tech/badge/parsarnaam
