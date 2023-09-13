@@ -14,13 +14,13 @@ For Indian electoral rolls, we assume the last name is the word in the name that
 
 Gradio App.
 -----------
-`Parsarnaam on HF <https://huggingface.co/spaces/sixtyfold/parsernaam>`_
+`parsernaam on HF <https://huggingface.co/spaces/sixtyfold/parsernaam>`_
 
 Installation
 ------------
 .. code-block:: bash
 
-    pip install parsarnaam
+    pip install parsernaam
 
 General API
 -----------
@@ -30,7 +30,7 @@ The general API is as follows:
 ::
 
     # Import the library
-    from parsarnaam.parsarnaam import ParseNames
+    from parsernaam.parsernaam import ParseNames
 
     positional arguments:
       df                 dataframe with Names to parse (with column name 'name')
