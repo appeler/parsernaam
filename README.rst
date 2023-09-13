@@ -1,12 +1,12 @@
-Parsarnaam: Predict First and Last Name
+Parsernaam: Predict First and Last Name
 -----------------------------------------
 
 .. image:: https://github.com/appeler/parsernaam/actions/workflows/python-package.yml/badge.svg
     :target: https://github.com/appeler/parsernaam/actions?query=workflow%3A%22Python+package%22
-.. image:: https://img.shields.io/pypi/v/parsarnaam.svg
-    :target: https://pypi.python.org/pypi/parsarnaam
-.. image:: https://static.pepy.tech/badge/parsarnaam
-    :target: https://pepy.tech/project/parsarnaam
+.. image:: https://img.shields.io/pypi/v/parsernaam.svg
+    :target: https://pypi.python.org/pypi/parsernaam
+.. image:: https://static.pepy.tech/badge/parsernaam
+    :target: https://pepy.tech/project/parsernaam
 
 Most common name parsers use crude pattern matching and the sequence of strings, e.g., the last word is the last name, to parse names. This approach is limited and fragile, especially for Indian names. We take a machine-learning approach to the problem. Using the large voter registration data in India and US, we build machine-learning-based name parsers that predict whether the string is a first or last name. 
 
