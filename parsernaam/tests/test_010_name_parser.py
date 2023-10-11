@@ -32,7 +32,6 @@ class TestParseNames(unittest.TestCase):
         Test parse pos
         """
         df = ParseNames.parse(self.df)
-        print(df.to_markdown())
         for parsed_name in df['parsed_name']:
             name_type = parsed_name['type']
             prob = parsed_name['prob']
