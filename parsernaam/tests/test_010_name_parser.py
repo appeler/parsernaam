@@ -10,6 +10,7 @@ import pandas as pd
 
 from parsernaam.parse import ParseNames
 
+
 class TestParseNames(unittest.TestCase):
     """
     TestParseNames
@@ -19,25 +20,25 @@ class TestParseNames(unittest.TestCase):
         """
         Set up
         """
-        self.df = pd.DataFrame({'name': ['Jan Petersen', 'Piet', 'Janssen']})
-        self.expected = ["first", "last", "first", "first"]
+        self.df = pd.DataFrame({'name': ['Jan', 'Nicholas Turner', 'Petersen', 'Nichols Richard', 'Piet',
+                                         'John Smith', 'Janssen', 'Kim Yeon']})
+        self.expected = ["first", "first_last", "last", "last_first", "first", "first_last", "first", "last_first"]
 
     def tearDown(self) -> None:
         return super().tearDown()
 
     def test_parse(self) -> None:
         """
-        Test parse
+        Test parse pos
         """
         df = ParseNames.parse(self.df)
+        print(df.to_markdown())
         for parsed_name in df['parsed_name']:
-            for name_dict in parsed_name:
-                name_type = name_dict['type']
-                prob = name_dict['prob']
-                expected_type = self.expected.pop(0)
-                self.assertEqual(name_type, expected_type)
-                self.assertGreater(prob, 0.5)
-
+            name_type = parsed_name['type']
+            prob = parsed_name['prob']
+            expected_type = self.expected.pop(0)
+            self.assertEqual(name_type, expected_type)
+            self.assertGreater(prob, 0.5)
 
 
 if __name__ == '__main__':

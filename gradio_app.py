@@ -4,6 +4,7 @@ import pandas as pd
 pd.set_option('display.max_colwidth', None)
 from parsernaam.parse import ParseNames
 
+
 def parse_names(names):
     given_names = names.split(",")
     df = pd.DataFrame({'name': given_names})
@@ -11,13 +12,13 @@ def parse_names(names):
     print(df)
     output = ""
     for parsed_name in df['parsed_name']:
-        for name_dict in parsed_name:
-            name = name_dict['name']
-            name_type = name_dict['type']
-            prob = name_dict['prob']
-            output += f"{name} (type: {name_type}, score: {prob:.2f})\n"
+        name = parsed_name['name']
+        name_type = parsed_name['type']
+        prob = parsed_name['prob']
+        output += f"{name} (type: {name_type}, score: {prob:.2f})\n"
         output += "\n"
     return output
+
 
 iface = gr.Interface(
     fn=parse_names,

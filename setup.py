@@ -55,7 +55,7 @@ class Tox(TestCommand):
 
 setup(
     name="parsernaam",
-    version="0.0.3",
+    version="0.0.4",
     description=("Name parser"),
     long_description=long_description,
     # The project's main homepage.

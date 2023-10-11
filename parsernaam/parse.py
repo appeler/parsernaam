@@ -7,12 +7,14 @@ import pandas as pd
 from .naam import Parsernaam
 from .utils import get_args
 
+
 class ParseNames(Parsernaam):
     """
     Parse names
     """
 
     MODEL_FN = "models/parsernaam.pt"
+    MODEL_POS_FN = "models/parsernaam_pos.pt"
     VOCAB_FN = "models/parsernaam.joblib"
 
     @classmethod
@@ -25,11 +27,12 @@ class ParseNames(Parsernaam):
 
         Returns:
             DataFrame with parsed names
-        """        
-        return super().parse(df, cls.MODEL_FN, cls.VOCAB_FN)
+        """
+        return super().parse(df, cls.MODEL_FN , cls.MODEL_POS_FN, cls.VOCAB_FN)
     
 
 parse_names = ParseNames.parse
+
 
 def main() -> None:
     """
