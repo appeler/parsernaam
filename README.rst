@@ -1,4 +1,4 @@
-Parsernaam: Predict First and Last Name
+Parsernaam: ML-Assisted Name Parser
 -----------------------------------------
 
 .. image:: https://github.com/appeler/parsernaam/actions/workflows/python-package.yml/badge.svg
