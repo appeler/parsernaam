@@ -2,7 +2,7 @@ name: Sphinx to GitHub Pages
             
 on:
   push:
-    branches: [master] # branch to trigger deployment
+    branches: [main] # branch to trigger deployment
 
 jobs:
   pages:
