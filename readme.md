@@ -1,9 +1,7 @@
 # Parsernaam: ML-Assisted Name Parser
 
-[![image](https://github.com/appeler/parsernaam/actions/workflows/python-package.yml/badge.svg)](https://github.com/appeler/parsernaam/actions?query=workflow%3A%22Python+package%22)
-
+[![image](https://github.com/appeler/parsernaam/workflows/test/badge.svg)](https://github.com/appeler/parsernaam/actions?query=workflow%3Atest)
 [![image](https://img.shields.io/pypi/v/parsernaam.svg)](https://pypi.python.org/pypi/parsernaam)
-
 [![image](https://static.pepy.tech/badge/parsernaam)](https://pepy.tech/project/parsernaam)
 
 Most common name parsers use crude pattern matching and the sequence of
