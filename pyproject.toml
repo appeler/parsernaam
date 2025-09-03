@@ -49,7 +49,6 @@ test = ["pytest>=6.0", "coverage", "tox"]
 parse_names = "parsernaam.parse:main"
 
 [tool.setuptools]
-packages = ["parsernaam"]
 include-package-data = true
 
 [tool.setuptools.packages.find]
