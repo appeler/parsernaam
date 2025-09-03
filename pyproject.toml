@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "parsernaam"
-version = "0.1.0"
+version = "0.1.1"
 description = "ML-assisted name parser for Indian and international names"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -30,10 +30,10 @@ classifiers = [
 keywords = ["name-parser", "names", "machine-learning", "nlp", "indian-names", "lstm", "pytorch"]
 dependencies = [
   "torch>=2.0.1",
-  "pandas>=2.0.3",
-  "joblib>=1.3.2",
+  "pandas>=1.5.0",
+  "joblib>=1.3.0",
   "scikit-learn>=1.3.0",
-  "numpy>=1.24.4"
+  "numpy>=1.21.0,<2.0.0"
 ]
 
 [project.optional-dependencies]
