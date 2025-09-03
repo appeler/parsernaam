@@ -1,9 +1,25 @@
 import torch
 import torch.nn as nn
+from typing import Optional
 
 
 class LSTM(nn.Module):
-    def __init__(self, input_size, hidden_size, output_size, num_layers=1):
+    """LSTM neural network for name classification.
+    
+    A multi-layer LSTM network with embedding layer for character-level
+    name classification. Supports both single name classification (first/last)
+    and positional classification (first_last/last_first).
+    """
+    
+    def __init__(self, input_size: int, hidden_size: int, output_size: int, num_layers: int = 1):
+        """Initialize LSTM model.
+        
+        Args:
+            input_size: Size of vocabulary (number of unique characters)
+            hidden_size: Hidden layer dimension
+            output_size: Number of output classes
+            num_layers: Number of LSTM layers
+        """
         super(LSTM, self).__init__()
         self.hidden_size = hidden_size
         self.num_layers = num_layers
@@ -15,7 +31,15 @@ class LSTM(nn.Module):
         self.fc = nn.Linear(hidden_size, output_size)
         self.softmax = nn.LogSoftmax(dim=1)
 
-    def forward(self, input):
+    def forward(self, input: torch.Tensor) -> torch.Tensor:
+        """Forward pass through the network.
+        
+        Args:
+            input: Input tensor of character indices [batch_size, sequence_length]
+            
+        Returns:
+            Log-softmax probabilities for each class [batch_size, num_classes]
+        """
         embedded = self.embedding(input.type(torch.IntTensor).to(input.device))
         # embedded = embedded.view(embedded.shape[0],-1,embedded.shape[3])
         h0 = torch.zeros(self.num_layers, embedded.size(0), self.hidden_size).to(input.device)

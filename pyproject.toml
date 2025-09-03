@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "parsernaam"
-version = "0.0.4"
-description = "Name parser"
-readme = "README.rst"
-requires-python = ">=3.6"
-license = { text = "MIT" }
+version = "0.1.0"
+description = "ML-assisted name parser for Indian and international names"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
 authors = [
   { name = "Rajashekar Chintalapati", email = "rajshekar.ch@gmail.com" },
   { name = "Gaurav Sood", email = "gsood07@gmail.com" }
@@ -16,25 +16,29 @@ authors = [
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
-  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "Topic :: Scientific/Engineering :: Information Analysis",
   "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Text Processing :: Linguistic",
   "Topic :: Utilities"
 ]
-keywords = ["parse", "names"]
+keywords = ["name-parser", "names", "machine-learning", "nlp", "indian-names", "lstm", "pytorch"]
 dependencies = [
-  "torch==2.0.1",
-  "pandas==2.0.3",
-  "joblib==1.3.2",
-  "scikit-learn==1.3.0",
-  "numpy==1.24.4"
+  "torch>=2.0.1",
+  "pandas>=2.0.3",
+  "joblib>=1.3.2",
+  "scikit-learn>=1.3.0",
+  "numpy>=1.24.4"
 ]
 
 [project.optional-dependencies]
-dev = ["check-manifest"]
-test = ["coverage", "tox"]
+dev = ["check-manifest", "black", "flake8", "isort"]
+test = ["pytest>=6.0", "coverage", "tox"]
 
 [project.urls]
 "Homepage" = "https://github.com/appeler/parsernaam"
@@ -47,6 +51,9 @@ parse_names = "parsernaam.parse:main"
 [tool.setuptools]
 packages = ["parsernaam"]
 include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["parsernaam*"]
 
 [tool.setuptools.package-data]
 parsernaam = [
