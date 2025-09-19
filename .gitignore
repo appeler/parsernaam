@@ -14,5 +14,6 @@ dist/
 parsernaam.egg-info/
 dev/
 docs/build
+docs/_build
 docs/source/_build
 .DS_Store
