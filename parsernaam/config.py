@@ -9,6 +9,8 @@ the parsernaam package, including model parameters, file paths,
 and classification categories.
 """
 
+from typing import List, Dict, Final
+
 class ModelConfig:
     """Model configuration constants.
     
@@ -23,18 +25,18 @@ class ModelConfig:
         CATEGORIES_POSITIONAL: Classification labels for multi-word names
         MODEL_FILES: Paths to model and vocabulary files
     """
-    HIDDEN_SIZE = 256  # Dimension of LSTM hidden state
-    NUM_LAYERS = 2     # Number of LSTM layers
-    SEQUENCE_LENGTH = 30  # Maximum character sequence length
+    HIDDEN_SIZE: Final[int] = 256  # Dimension of LSTM hidden state
+    NUM_LAYERS: Final[int] = 2     # Number of LSTM layers
+    SEQUENCE_LENGTH: Final[int] = 30  # Maximum character sequence length
     
     # Classification categories for single names (first name only or last name only)
-    CATEGORIES_SINGLE = ['last', 'first']
+    CATEGORIES_SINGLE: Final[List[str]] = ['last', 'first']
     
     # Classification categories for multi-word names (position-based)
-    CATEGORIES_POSITIONAL = ['last_first', 'first_last']
+    CATEGORIES_POSITIONAL: Final[List[str]] = ['last_first', 'first_last']
     
     # File paths for trained models and vocabulary
-    MODEL_FILES = {
+    MODEL_FILES: Final[Dict[str, str]] = {
         'single': "models/parsernaam.pt",      # Single name classifier
         'positional': "models/parsernaam_pos.pt",  # Positional classifier
         'vocab': "models/parsernaam.joblib"    # Character vocabulary

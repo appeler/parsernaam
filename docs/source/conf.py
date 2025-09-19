@@ -20,6 +20,7 @@ release = '0.0.1'
 
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.autodoc.typehints',
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
     'sphinx.ext.githubpages',
@@ -45,6 +46,14 @@ autodoc_default_options = {
     'special-members': '__init__',
     'undoc-members': True,
     'exclude-members': '__weakref__'
+}
+
+# Type hints settings
+autodoc_typehints = 'description'
+autodoc_typehints_description_target = 'documented'
+autodoc_type_aliases = {
+    'DataFrame': 'pandas.DataFrame',
+    'Tensor': 'torch.Tensor',
 }
 
 templates_path = ['_templates']
