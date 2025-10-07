@@ -39,6 +39,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["check-manifest", "black", "flake8", "isort"]
 test = ["pytest>=6.0", "coverage", "tox"]
+docs = ["sphinx>=7.0", "sphinx_rtd_theme>=2.0"]
 
 [project.urls]
 "Homepage" = "https://github.com/appeler/parsernaam"
