@@ -1,0 +1,739 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Reference &mdash; parsernaam 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Usage" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            parsernaam
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-parsernaam.parse">Core Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#parsernaam.parse.ParseNames"><code class="docutils literal notranslate"><span class="pre">ParseNames</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#parsernaam.parse.ParseNames.MODEL_FN"><code class="docutils literal notranslate"><span class="pre">ParseNames.MODEL_FN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parsernaam.parse.ParseNames.MODEL_POS_FN"><code class="docutils literal notranslate"><span class="pre">ParseNames.MODEL_POS_FN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parsernaam.parse.ParseNames.VOCAB_FN"><code class="docutils literal notranslate"><span class="pre">ParseNames.VOCAB_FN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parsernaam.parse.ParseNames.parse"><code class="docutils literal notranslate"><span class="pre">ParseNames.parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#parsernaam.parse.parse_names"><code class="docutils literal notranslate"><span class="pre">parse_names()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parsernaam.parse.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parsernaam.naam.Parsernaam"><code class="docutils literal notranslate"><span class="pre">Parsernaam</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#parsernaam.naam.Parsernaam.parse"><code class="docutils literal notranslate"><span class="pre">Parsernaam.parse()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-parsernaam.model">Model Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#parsernaam.model.LSTM"><code class="docutils literal notranslate"><span class="pre">LSTM</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#parsernaam.model.LSTM.__init__"><code class="docutils literal notranslate"><span class="pre">LSTM.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parsernaam.model.LSTM.forward"><code class="docutils literal notranslate"><span class="pre">LSTM.forward()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-parsernaam.utils">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#parsernaam.utils.get_args"><code class="docutils literal notranslate"><span class="pre">get_args()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-parsernaam.config">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#parsernaam.config.ModelConfig"><code class="docutils literal notranslate"><span class="pre">ModelConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#parsernaam.config.ModelConfig.HIDDEN_SIZE"><code class="docutils literal notranslate"><span class="pre">ModelConfig.HIDDEN_SIZE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parsernaam.config.ModelConfig.NUM_LAYERS"><code class="docutils literal notranslate"><span class="pre">ModelConfig.NUM_LAYERS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parsernaam.config.ModelConfig.SEQUENCE_LENGTH"><code class="docutils literal notranslate"><span class="pre">ModelConfig.SEQUENCE_LENGTH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parsernaam.config.ModelConfig.CATEGORIES_SINGLE"><code class="docutils literal notranslate"><span class="pre">ModelConfig.CATEGORIES_SINGLE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parsernaam.config.ModelConfig.CATEGORIES_POSITIONAL"><code class="docutils literal notranslate"><span class="pre">ModelConfig.CATEGORIES_POSITIONAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parsernaam.config.ModelConfig.MODEL_FILES"><code class="docutils literal notranslate"><span class="pre">ModelConfig.MODEL_FILES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">ModelConfig.HIDDEN_SIZE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">ModelConfig.NUM_LAYERS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">ModelConfig.SEQUENCE_LENGTH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">ModelConfig.CATEGORIES_SINGLE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">ModelConfig.CATEGORIES_POSITIONAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">ModelConfig.MODEL_FILES</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-parsernaam">Package Information</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#parsernaam.ParseNames"><code class="docutils literal notranslate"><span class="pre">ParseNames</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#parsernaam.ParseNames.MODEL_FN"><code class="docutils literal notranslate"><span class="pre">ParseNames.MODEL_FN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parsernaam.ParseNames.MODEL_POS_FN"><code class="docutils literal notranslate"><span class="pre">ParseNames.MODEL_POS_FN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parsernaam.ParseNames.VOCAB_FN"><code class="docutils literal notranslate"><span class="pre">ParseNames.VOCAB_FN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parsernaam.ParseNames.parse"><code class="docutils literal notranslate"><span class="pre">ParseNames.parse()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#quick-reference">Quick Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#main-functions">Main Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id6"><code class="docutils literal notranslate"><span class="pre">parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Core Classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id8"><code class="docutils literal notranslate"><span class="pre">ParseNames</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13"><code class="docutils literal notranslate"><span class="pre">Parsernaam</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id15"><code class="docutils literal notranslate"><span class="pre">LSTM</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-examples">Usage Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Information:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/appeler/parsernaam">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/parsernaam/">PyPI Package</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://huggingface.co/spaces/sixtyfold/parsernaam">Gradio Demo</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">parsernaam</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h1>
+<p>This section provides detailed documentation of the parsernaam API.</p>
+<section id="module-parsernaam.parse">
+<span id="core-classes"></span><h2>Core Classes<a class="headerlink" href="#module-parsernaam.parse" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="parsernaam.parse.ParseNames">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">parsernaam.parse.</span></span><span class="sig-name descname"><span class="pre">ParseNames</span></span><a class="reference internal" href="_modules/parsernaam/parse.html#ParseNames"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parsernaam.parse.ParseNames" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#id13" title="parsernaam.naam.Parsernaam"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parsernaam</span></code></a></p>
+<p>Main API class for parsing names using machine learning models.</p>
+<p>This class provides the primary interface for name parsing functionality,
+extending the base Parsernaam class with predefined model file paths.
+Uses LSTM neural networks to classify names as first/last or determine
+positional ordering in multi-word names.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">parsernaam.parse</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParseNames</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;John Smith&#39;</span><span class="p">,</span> <span class="s1">&#39;Kim Yeon&#39;</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">ParseNames</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;parsed_name&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">{&#39;name&#39;: &#39;John Smith&#39;, &#39;type&#39;: &#39;first_last&#39;, &#39;prob&#39;: 0.998}</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="parsernaam.parse.ParseNames.MODEL_FN">
+<span class="sig-name descname"><span class="pre">MODEL_FN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'models/parsernaam.pt'</span></em><a class="headerlink" href="#parsernaam.parse.ParseNames.MODEL_FN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="parsernaam.parse.ParseNames.MODEL_POS_FN">
+<span class="sig-name descname"><span class="pre">MODEL_POS_FN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'models/parsernaam_pos.pt'</span></em><a class="headerlink" href="#parsernaam.parse.ParseNames.MODEL_POS_FN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="parsernaam.parse.ParseNames.VOCAB_FN">
+<span class="sig-name descname"><span class="pre">VOCAB_FN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'models/parsernaam.joblib'</span></em><a class="headerlink" href="#parsernaam.parse.ParseNames.VOCAB_FN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="parsernaam.parse.ParseNames.parse">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parsernaam/parse.html#ParseNames.parse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parsernaam.parse.ParseNames.parse" title="Link to this definition"></a></dt>
+<dd><p>Parse names</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame with names</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame with parsed names</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="parsernaam.parse.parse_names">
+<span class="sig-prename descclassname"><span class="pre">parsernaam.parse.</span></span><span class="sig-name descname"><span class="pre">parse_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#parsernaam.parse.parse_names" title="Link to this definition"></a></dt>
+<dd><p>Parse names</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame with names</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame with parsed names</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="parsernaam.parse.main">
+<span class="sig-prename descclassname"><span class="pre">parsernaam.parse.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/parsernaam/parse.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parsernaam.parse.main" title="Link to this definition"></a></dt>
+<dd><p>Main method to parse names</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Exit code (None for success)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class" id="module-parsernaam.naam">
+<dt class="sig sig-object py" id="parsernaam.naam.Parsernaam">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">parsernaam.naam.</span></span><span class="sig-name descname"><span class="pre">Parsernaam</span></span><a class="reference internal" href="_modules/parsernaam/naam.html#Parsernaam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parsernaam.naam.Parsernaam" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Parse names</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="parsernaam.naam.Parsernaam.parse">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_fn_pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vocab_fn</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parsernaam/naam.html#Parsernaam.parse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parsernaam.naam.Parsernaam.parse" title="Link to this definition"></a></dt>
+<dd><p>Parse names using ML models</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame with ‘name’ column containing names to parse</p></li>
+<li><p><strong>model_fn</strong> (<em>str</em>) – Path to single name model file</p></li>
+<li><p><strong>model_fn_pos</strong> (<em>str</em>) – Path to positional name model file</p></li>
+<li><p><strong>vocab_fn</strong> (<em>str</em>) – Path to vocabulary file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame with added ‘parsed_name’ column</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ValueError</strong> – If required ‘name’ column is missing</p></li>
+<li><p><strong>FileNotFoundError</strong> – If model files cannot be found</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-parsernaam.model">
+<span id="model-architecture"></span><h2>Model Architecture<a class="headerlink" href="#module-parsernaam.model" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="parsernaam.model.LSTM">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">parsernaam.model.</span></span><span class="sig-name descname"><span class="pre">LSTM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parsernaam/model.html#LSTM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parsernaam.model.LSTM" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>LSTM neural network for name classification.</p>
+<p>A multi-layer LSTM network with embedding layer for character-level
+name classification. Supports both single name classification (first/last)
+and positional classification (first_last/last_first).</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="parsernaam.model.LSTM.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parsernaam/model.html#LSTM.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parsernaam.model.LSTM.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize LSTM model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_size</strong> (<em>int</em>) – Size of vocabulary (number of unique characters)</p></li>
+<li><p><strong>hidden_size</strong> (<em>int</em>) – Hidden layer dimension</p></li>
+<li><p><strong>output_size</strong> (<em>int</em>) – Number of output classes</p></li>
+<li><p><strong>num_layers</strong> (<em>int</em>) – Number of LSTM layers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="parsernaam.model.LSTM.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parsernaam/model.html#LSTM.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parsernaam.model.LSTM.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward pass through the network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>input</strong> (<em>Tensor</em>) – Input tensor of character indices [batch_size, sequence_length]</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Log-softmax probabilities for each class [batch_size, num_classes]</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Tensor</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-parsernaam.utils">
+<span id="utilities"></span><h2>Utilities<a class="headerlink" href="#module-parsernaam.utils" title="Link to this heading"></a></h2>
+<p>To process arguments from the command line.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="parsernaam.utils.get_args">
+<span class="sig-prename descclassname"><span class="pre">parsernaam.utils.</span></span><span class="sig-name descname"><span class="pre">get_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epilog</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_out</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parsernaam/utils.html#get_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parsernaam.utils.get_args" title="Link to this definition"></a></dt>
+<dd><p>Parse command line arguments for the parsernaam CLI tool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>argv</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – List of command line arguments</p></li>
+<li><p><strong>description</strong> (<em>str</em>) – Description text for the argument parser</p></li>
+<li><p><strong>epilog</strong> (<em>str</em>) – Example usage text shown after help</p></li>
+<li><p><strong>default_out</strong> (<em>str</em>) – Default output filename</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Parsed command line arguments namespace</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Namespace</em></p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">args</span> <span class="o">=</span> <span class="n">get_args</span><span class="p">([</span><span class="s1">&#39;input.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;output.csv&#39;</span><span class="p">],</span>
+<span class="gp">... </span>                <span class="s1">&#39;Parse names&#39;</span><span class="p">,</span> <span class="s1">&#39;Example usage&#39;</span><span class="p">,</span> <span class="s1">&#39;out.csv&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">args</span><span class="o">.</span><span class="n">input</span>
+<span class="go">&#39;input.csv&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-parsernaam.config">
+<span id="configuration"></span><h2>Configuration<a class="headerlink" href="#module-parsernaam.config" title="Link to this heading"></a></h2>
+<p>Configuration constants for parsernaam.</p>
+<p>This module contains all the hardcoded constants used throughout
+the parsernaam package, including model parameters, file paths,
+and classification categories.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="parsernaam.config.ModelConfig">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">parsernaam.config.</span></span><span class="sig-name descname"><span class="pre">ModelConfig</span></span><a class="reference internal" href="_modules/parsernaam/config.html#ModelConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parsernaam.config.ModelConfig" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Model configuration constants.</p>
+<p>Contains all the hyperparameters and settings used by the LSTM models
+for name parsing, including architecture parameters and file locations.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="parsernaam.config.ModelConfig.HIDDEN_SIZE">
+<span class="sig-name descname"><span class="pre">HIDDEN_SIZE</span></span><a class="headerlink" href="#parsernaam.config.ModelConfig.HIDDEN_SIZE" title="Link to this definition"></a></dt>
+<dd><p>Dimension of LSTM hidden layers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Final[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="parsernaam.config.ModelConfig.NUM_LAYERS">
+<span class="sig-name descname"><span class="pre">NUM_LAYERS</span></span><a class="headerlink" href="#parsernaam.config.ModelConfig.NUM_LAYERS" title="Link to this definition"></a></dt>
+<dd><p>Number of LSTM layers in the model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Final[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="parsernaam.config.ModelConfig.SEQUENCE_LENGTH">
+<span class="sig-name descname"><span class="pre">SEQUENCE_LENGTH</span></span><a class="headerlink" href="#parsernaam.config.ModelConfig.SEQUENCE_LENGTH" title="Link to this definition"></a></dt>
+<dd><p>Maximum length of input name sequences</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Final[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="parsernaam.config.ModelConfig.CATEGORIES_SINGLE">
+<span class="sig-name descname"><span class="pre">CATEGORIES_SINGLE</span></span><a class="headerlink" href="#parsernaam.config.ModelConfig.CATEGORIES_SINGLE" title="Link to this definition"></a></dt>
+<dd><p>Classification labels for single names</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Final[List[str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="parsernaam.config.ModelConfig.CATEGORIES_POSITIONAL">
+<span class="sig-name descname"><span class="pre">CATEGORIES_POSITIONAL</span></span><a class="headerlink" href="#parsernaam.config.ModelConfig.CATEGORIES_POSITIONAL" title="Link to this definition"></a></dt>
+<dd><p>Classification labels for multi-word names</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Final[List[str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="parsernaam.config.ModelConfig.MODEL_FILES">
+<span class="sig-name descname"><span class="pre">MODEL_FILES</span></span><a class="headerlink" href="#parsernaam.config.ModelConfig.MODEL_FILES" title="Link to this definition"></a></dt>
+<dd><p>Paths to model and vocabulary files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Final[Dict[str, str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">HIDDEN_SIZE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">256</span></em><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">NUM_LAYERS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#id1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">SEQUENCE_LENGTH</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#id2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">CATEGORIES_SINGLE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['last',</span> <span class="pre">'first']</span></em><a class="headerlink" href="#id3" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">CATEGORIES_POSITIONAL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['last_first',</span> <span class="pre">'first_last']</span></em><a class="headerlink" href="#id4" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">MODEL_FILES</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'positional':</span> <span class="pre">'models/parsernaam_pos.pt',</span> <span class="pre">'single':</span> <span class="pre">'models/parsernaam.pt',</span> <span class="pre">'vocab':</span> <span class="pre">'models/parsernaam.joblib'}</span></em><a class="headerlink" href="#id5" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-parsernaam">
+<span id="package-information"></span><h2>Package Information<a class="headerlink" href="#module-parsernaam" title="Link to this heading"></a></h2>
+<p>ParserNaam is a package for parsing names.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="parsernaam.ParseNames">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">parsernaam.</span></span><span class="sig-name descname"><span class="pre">ParseNames</span></span><a class="reference internal" href="_modules/parsernaam/parse.html#ParseNames"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parsernaam.ParseNames" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#id13" title="parsernaam.naam.Parsernaam"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parsernaam</span></code></a></p>
+<p>Main API class for parsing names using machine learning models.</p>
+<p>This class provides the primary interface for name parsing functionality,
+extending the base Parsernaam class with predefined model file paths.
+Uses LSTM neural networks to classify names as first/last or determine
+positional ordering in multi-word names.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">parsernaam.parse</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParseNames</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;John Smith&#39;</span><span class="p">,</span> <span class="s1">&#39;Kim Yeon&#39;</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">ParseNames</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;parsed_name&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">{&#39;name&#39;: &#39;John Smith&#39;, &#39;type&#39;: &#39;first_last&#39;, &#39;prob&#39;: 0.998}</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="parsernaam.ParseNames.MODEL_FN">
+<span class="sig-name descname"><span class="pre">MODEL_FN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'models/parsernaam.pt'</span></em><a class="headerlink" href="#parsernaam.ParseNames.MODEL_FN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="parsernaam.ParseNames.MODEL_POS_FN">
+<span class="sig-name descname"><span class="pre">MODEL_POS_FN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'models/parsernaam_pos.pt'</span></em><a class="headerlink" href="#parsernaam.ParseNames.MODEL_POS_FN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="parsernaam.ParseNames.VOCAB_FN">
+<span class="sig-name descname"><span class="pre">VOCAB_FN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'models/parsernaam.joblib'</span></em><a class="headerlink" href="#parsernaam.ParseNames.VOCAB_FN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="parsernaam.ParseNames.parse">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parsernaam/parse.html#ParseNames.parse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parsernaam.ParseNames.parse" title="Link to this definition"></a></dt>
+<dd><p>Parse names</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame with names</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame with parsed names</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="quick-reference">
+<h2>Quick Reference<a class="headerlink" href="#quick-reference" title="Link to this heading"></a></h2>
+<section id="main-functions">
+<h3>Main Functions<a class="headerlink" href="#main-functions" title="Link to this heading"></a></h3>
+<p>The primary interface for name parsing:</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-prename descclassname"><span class="pre">parsernaam.parse.ParseNames.</span></span><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id6" title="Link to this definition"></a></dt>
+<dd><p>Parse names</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame with names</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame with parsed names</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="id7">
+<h3>Core Classes<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="id8">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">parsernaam.parse.</span></span><span class="sig-name descname"><span class="pre">ParseNames</span></span><a class="reference internal" href="_modules/parsernaam/parse.html#ParseNames"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id8" title="Link to this definition"></a></dt>
+<dd><p>Main API class for parsing names using machine learning models.</p>
+<p>This class provides the primary interface for name parsing functionality,
+extending the base Parsernaam class with predefined model file paths.
+Uses LSTM neural networks to classify names as first/last or determine
+positional ordering in multi-word names.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">parsernaam.parse</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParseNames</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;John Smith&#39;</span><span class="p">,</span> <span class="s1">&#39;Kim Yeon&#39;</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">ParseNames</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;parsed_name&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">{&#39;name&#39;: &#39;John Smith&#39;, &#39;type&#39;: &#39;first_last&#39;, &#39;prob&#39;: 0.998}</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id9">
+<span class="sig-name descname"><span class="pre">MODEL_FN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'models/parsernaam.pt'</span></em><a class="headerlink" href="#id9" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id10">
+<span class="sig-name descname"><span class="pre">MODEL_POS_FN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'models/parsernaam_pos.pt'</span></em><a class="headerlink" href="#id10" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id11">
+<span class="sig-name descname"><span class="pre">VOCAB_FN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'models/parsernaam.joblib'</span></em><a class="headerlink" href="#id11" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id12">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parsernaam/parse.html#ParseNames.parse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id12" title="Link to this definition"></a></dt>
+<dd><p>Parse names</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame with names</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame with parsed names</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="id13">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">parsernaam.naam.</span></span><span class="sig-name descname"><span class="pre">Parsernaam</span></span><a class="reference internal" href="_modules/parsernaam/naam.html#Parsernaam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id13" title="Link to this definition"></a></dt>
+<dd><p>Parse names</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="id14">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_fn_pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vocab_fn</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parsernaam/naam.html#Parsernaam.parse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id14" title="Link to this definition"></a></dt>
+<dd><p>Parse names using ML models</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame with ‘name’ column containing names to parse</p></li>
+<li><p><strong>model_fn</strong> (<em>str</em>) – Path to single name model file</p></li>
+<li><p><strong>model_fn_pos</strong> (<em>str</em>) – Path to positional name model file</p></li>
+<li><p><strong>vocab_fn</strong> (<em>str</em>) – Path to vocabulary file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame with added ‘parsed_name’ column</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ValueError</strong> – If required ‘name’ column is missing</p></li>
+<li><p><strong>FileNotFoundError</strong> – If model files cannot be found</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="id15">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">parsernaam.model.</span></span><span class="sig-name descname"><span class="pre">LSTM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parsernaam/model.html#LSTM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id15" title="Link to this definition"></a></dt>
+<dd><p>LSTM neural network for name classification.</p>
+<p>A multi-layer LSTM network with embedding layer for character-level
+name classification. Supports both single name classification (first/last)
+and positional classification (first_last/last_first).</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="id16">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parsernaam/model.html#LSTM.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id16" title="Link to this definition"></a></dt>
+<dd><p>Initialize LSTM model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_size</strong> (<em>int</em>) – Size of vocabulary (number of unique characters)</p></li>
+<li><p><strong>hidden_size</strong> (<em>int</em>) – Hidden layer dimension</p></li>
+<li><p><strong>output_size</strong> (<em>int</em>) – Number of output classes</p></li>
+<li><p><strong>num_layers</strong> (<em>int</em>) – Number of LSTM layers</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id17">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parsernaam/model.html#LSTM.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id17" title="Link to this definition"></a></dt>
+<dd><p>Forward pass through the network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>input</strong> (<em>Tensor</em>) – Input tensor of character indices [batch_size, sequence_length]</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Log-softmax probabilities for each class [batch_size, num_classes]</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Tensor</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="usage-examples">
+<h3>Usage Examples<a class="headerlink" href="#usage-examples" title="Link to this heading"></a></h3>
+<p>Basic parsing:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">parsernaam.parse</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParseNames</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;John Smith&#39;</span><span class="p">,</span> <span class="s1">&#39;Jane Doe&#39;</span><span class="p">]})</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">ParseNames</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Model architecture:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">parsernaam.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LSTM</span>
+
+<span class="c1"># Model automatically loaded and cached</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LSTM</span><span class="p">(</span><span class="n">input_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">hidden_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">output_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">num_layers</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Command line utilities:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">parsernaam.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_args</span>
+
+<span class="n">args</span> <span class="o">=</span> <span class="n">get_args</span><span class="p">([</span><span class="s1">&#39;input.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;output.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">],</span>
+                <span class="s1">&#39;Parse names&#39;</span><span class="p">,</span> <span class="s1">&#39;Example usage&#39;</span><span class="p">,</span> <span class="s1">&#39;out.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usage.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Rajashekar Chintalapati and Gaurav Sood.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

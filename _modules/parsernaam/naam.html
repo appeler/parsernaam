@@ -1,0 +1,275 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>parsernaam.naam &mdash; parsernaam 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            parsernaam
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Information:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/appeler/parsernaam">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/parsernaam/">PyPI Package</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://huggingface.co/spaces/sixtyfold/parsernaam">Gradio Demo</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">parsernaam</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">parsernaam.naam</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for parsernaam.naam</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pkg_resources</span><span class="w"> </span><span class="kn">import</span> <span class="n">resource_filename</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">joblib</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LSTM</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelConfig</span>
+
+<span class="c1"># Configure logging</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Parsernaam">
+<a class="viewcode-back" href="../../api.html#parsernaam.naam.Parsernaam">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Parsernaam</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parse names</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_models_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_vocab_cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<div class="viewcode-block" id="Parsernaam.parse">
+<a class="viewcode-back" href="../../api.html#parsernaam.naam.Parsernaam.parse">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">model_fn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">model_fn_pos</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">vocab_fn</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse names using ML models</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            df: DataFrame with &#39;name&#39; column containing names to parse</span>
+<span class="sd">            model_fn: Path to single name model file</span>
+<span class="sd">            model_fn_pos: Path to positional name model file  </span>
+<span class="sd">            vocab_fn: Path to vocabulary file</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            DataFrame with added &#39;parsed_name&#39; column</span>
+<span class="sd">            </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If required &#39;name&#39; column is missing</span>
+<span class="sd">            FileNotFoundError: If model files cannot be found</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting name parsing for DataFrame with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s2"> rows&quot;</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Input is not a pandas DataFrame&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input must be a pandas DataFrame&quot;</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="s1">&#39;name&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;DataFrame missing required &#39;name&#39; column&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;DataFrame must contain &#39;name&#39; column&quot;</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Empty DataFrame provided, returning empty result&quot;</span><span class="p">)</span>
+            <span class="n">result_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">result_df</span><span class="p">[</span><span class="s1">&#39;parsed_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">return</span> <span class="n">result_df</span>
+        <span class="n">MODEL</span> <span class="o">=</span> <span class="n">resource_filename</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">model_fn</span><span class="p">)</span>
+        <span class="n">MODEL_POS</span> <span class="o">=</span> <span class="n">resource_filename</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">model_fn_pos</span><span class="p">)</span>
+        <span class="n">VOCAB</span> <span class="o">=</span> <span class="n">resource_filename</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">vocab_fn</span><span class="p">)</span>
+
+        <span class="c1"># Load vocabulary with caching</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_vocab_cache</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading vocabulary from </span><span class="si">{</span><span class="n">VOCAB</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">vectorizer</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">VOCAB</span><span class="p">)</span>
+            <span class="n">vocabulary_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">())</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">_vocab_cache</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;vocab&#39;</span><span class="p">:</span> <span class="n">vocabulary_list</span><span class="p">,</span>
+                <span class="s1">&#39;all_letters&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">vocabulary_list</span><span class="p">),</span>
+                <span class="s1">&#39;n_letters&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">vocabulary_list</span><span class="p">)</span>
+            <span class="p">}</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded vocabulary with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">vocabulary_list</span><span class="p">)</span><span class="si">}</span><span class="s2"> characters&quot;</span><span class="p">)</span>
+        
+        <span class="n">vocabulary</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_vocab_cache</span><span class="p">[</span><span class="s1">&#39;vocab&#39;</span><span class="p">]</span>
+        <span class="n">all_letters_string</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_vocab_cache</span><span class="p">[</span><span class="s1">&#39;all_letters&#39;</span><span class="p">]</span>
+        <span class="n">vocabulary_size</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_vocab_cache</span><span class="p">[</span><span class="s1">&#39;n_letters&#39;</span><span class="p">]</span>
+        <span class="n">out_of_bounds_token</span> <span class="o">=</span> <span class="n">vocabulary_size</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="n">positional_categories</span> <span class="o">=</span> <span class="n">ModelConfig</span><span class="o">.</span><span class="n">CATEGORIES_POSITIONAL</span>
+        <span class="n">single_name_categories</span> <span class="o">=</span> <span class="n">ModelConfig</span><span class="o">.</span><span class="n">CATEGORIES_SINGLE</span>
+        <span class="n">num_single_categories</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">single_name_categories</span><span class="p">)</span>
+
+        <span class="n">hidden_layer_size</span> <span class="o">=</span> <span class="n">ModelConfig</span><span class="o">.</span><span class="n">HIDDEN_SIZE</span>
+        <span class="n">sequence_length</span> <span class="o">=</span> <span class="n">ModelConfig</span><span class="o">.</span><span class="n">SEQUENCE_LENGTH</span>
+        <span class="n">embedding_vocab_size</span> <span class="o">=</span> <span class="n">vocabulary_size</span> <span class="o">+</span> <span class="mi">2</span>  <span class="c1"># vocabulary + out_of_bounds + padding</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda:0&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Initialize models with caching</span>
+        <span class="n">cache_key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">MODEL</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">MODEL_POS</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">device</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="n">cache_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_models_cache</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading models on device: </span><span class="si">{</span><span class="n">device</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading single name model from </span><span class="si">{</span><span class="n">MODEL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">single_name_model</span> <span class="o">=</span> <span class="n">LSTM</span><span class="p">(</span><span class="n">embedding_vocab_size</span><span class="p">,</span> <span class="n">hidden_layer_size</span><span class="p">,</span> <span class="n">num_single_categories</span><span class="p">,</span> <span class="n">num_layers</span><span class="o">=</span><span class="n">ModelConfig</span><span class="o">.</span><span class="n">NUM_LAYERS</span><span class="p">)</span>
+            <span class="n">single_name_model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">MODEL</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="n">device</span><span class="p">))</span>
+            <span class="n">single_name_model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">single_name_model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading positional name model from </span><span class="si">{</span><span class="n">MODEL_POS</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">positional_name_model</span> <span class="o">=</span> <span class="n">LSTM</span><span class="p">(</span><span class="n">embedding_vocab_size</span><span class="p">,</span> <span class="n">hidden_layer_size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">positional_categories</span><span class="p">),</span> <span class="n">num_layers</span><span class="o">=</span><span class="n">ModelConfig</span><span class="o">.</span><span class="n">NUM_LAYERS</span><span class="p">)</span>
+            <span class="n">positional_name_model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">MODEL_POS</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="n">device</span><span class="p">))</span>
+            <span class="n">positional_name_model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">positional_name_model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+            
+            <span class="bp">cls</span><span class="o">.</span><span class="n">_models_cache</span><span class="p">[</span><span class="n">cache_key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;single_name_model&#39;</span><span class="p">:</span> <span class="n">single_name_model</span><span class="p">,</span>
+                <span class="s1">&#39;positional_name_model&#39;</span><span class="p">:</span> <span class="n">positional_name_model</span>
+            <span class="p">}</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Models loaded and cached successfully&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Using cached models&quot;</span><span class="p">)</span>
+        
+        <span class="n">single_name_model</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_models_cache</span><span class="p">[</span><span class="n">cache_key</span><span class="p">][</span><span class="s1">&#39;single_name_model&#39;</span><span class="p">]</span>
+        <span class="n">positional_name_model</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_models_cache</span><span class="p">[</span><span class="n">cache_key</span><span class="p">][</span><span class="s1">&#39;positional_name_model&#39;</span><span class="p">]</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">get_character_index</span><span class="p">(</span><span class="n">character</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="n">character_index</span> <span class="o">=</span> <span class="n">all_letters_string</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">character</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">character_index</span> <span class="k">if</span> <span class="n">character_index</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="n">out_of_bounds_token</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">convert_name_to_tensor</span><span class="p">(</span><span class="n">name_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+            <span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">sequence_length</span><span class="p">)</span> <span class="o">*</span> <span class="n">out_of_bounds_token</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">position_index</span><span class="p">,</span> <span class="n">character</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">name_string</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">position_index</span> <span class="o">&gt;=</span> <span class="n">sequence_length</span><span class="p">:</span>
+                        <span class="k">break</span>
+                    <span class="n">tensor</span><span class="p">[</span><span class="n">position_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_character_index</span><span class="p">(</span><span class="n">character</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+                <span class="k">pass</span>
+            <span class="k">return</span> <span class="n">tensor</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">parse_single_name</span><span class="p">(</span><span class="n">name_input</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name_input</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">name_input</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name_input</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;unknown&#39;</span><span class="p">,</span> <span class="s1">&#39;prob&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+                
+            <span class="n">name_parts</span> <span class="o">=</span> <span class="n">name_input</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="n">name_tensor</span> <span class="o">=</span> <span class="n">convert_name_to_tensor</span><span class="p">(</span><span class="n">name_input</span><span class="p">)</span>
+            
+            <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+                <span class="c1"># Use single name model for one word, positional model for multiple words</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">name_parts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">model_output</span> <span class="o">=</span> <span class="n">single_name_model</span><span class="p">(</span><span class="n">name_tensor</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">))</span>
+                    <span class="n">probabilities</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">model_output</span><span class="p">)</span>
+                    <span class="n">predicted_class_index</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">probabilities</span><span class="p">)</span>
+                    <span class="n">predicted_name_type</span> <span class="o">=</span> <span class="n">single_name_categories</span><span class="p">[</span><span class="n">predicted_class_index</span><span class="o">.</span><span class="n">item</span><span class="p">()]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">model_output</span> <span class="o">=</span> <span class="n">positional_name_model</span><span class="p">(</span><span class="n">name_tensor</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">))</span>
+                    <span class="n">probabilities</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">model_output</span><span class="p">)</span>
+                    <span class="n">predicted_class_index</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">probabilities</span><span class="p">)</span>
+                    <span class="n">predicted_name_type</span> <span class="o">=</span> <span class="n">positional_categories</span><span class="p">[</span><span class="n">predicted_class_index</span><span class="o">.</span><span class="n">item</span><span class="p">()]</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name_input</span><span class="p">,</span> 
+                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="n">predicted_name_type</span><span class="p">,</span> 
+                    <span class="s1">&#39;prob&#39;</span><span class="p">:</span> <span class="n">probabilities</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">predicted_class_index</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+                <span class="p">}</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Applying name parsing to all rows&quot;</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;parsed_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">parse_single_name</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Name parsing completed for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s2"> rows&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Rajashekar Chintalapati and Gaurav Sood.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

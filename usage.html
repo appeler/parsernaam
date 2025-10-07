@@ -1,0 +1,388 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usage &mdash; parsernaam 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            parsernaam
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#python-api">Python API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-usage">Basic Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output-format">Output Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#working-with-results">Working with Results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-dataframe-column">Custom DataFrame Column</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#batch-processing">Batch Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#command-line-interface">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Basic Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#arguments">Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input-file-format">Input File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output-file-format">Output File Format</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#web-interface">Web Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gradio-demo">Gradio Demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-locally">Running Locally</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#model-behavior">Model Behavior</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#single-names">Single Names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multi-word-names">Multi-word Names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#confidence-scores">Confidence Scores</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cultural-considerations">Cultural Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#error-handling">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#performance-tips">Performance Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#common-issues">Common Issues</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Information:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/appeler/parsernaam">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/parsernaam/">PyPI Package</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://huggingface.co/spaces/sixtyfold/parsernaam">Gradio Demo</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">parsernaam</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Usage</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h1>
+<p>Parsernaam provides both a Python API and a command-line interface for parsing names using machine learning models.</p>
+<section id="python-api">
+<h2>Python API<a class="headerlink" href="#python-api" title="Link to this heading"></a></h2>
+<section id="basic-usage">
+<h3>Basic Usage<a class="headerlink" href="#basic-usage" title="Link to this heading"></a></h3>
+<p>The main entry point is the <code class="docutils literal notranslate"><span class="pre">ParseNames</span></code> class with its static <code class="docutils literal notranslate"><span class="pre">parse()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">parsernaam.parse</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParseNames</span>
+
+<span class="c1"># Create DataFrame with names to parse</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s1">&#39;Jan&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Nicholas Turner&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Petersen&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Nichols Richard&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Piet&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;John Smith&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Janssen&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Kim Yeon&#39;</span>
+<span class="p">]})</span>
+
+<span class="c1"># Parse names using ML models</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">ParseNames</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="output-format">
+<h3>Output Format<a class="headerlink" href="#output-format" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">parse()</span></code> method returns a DataFrame with an additional <code class="docutils literal notranslate"><span class="pre">parsed_name</span></code> column containing dictionaries with:</p>
+<ul class="simple">
+<li><p><strong>name</strong>: The original name</p></li>
+<li><p><strong>type</strong>: Classification result (<code class="docutils literal notranslate"><span class="pre">'first'</span></code>, <code class="docutils literal notranslate"><span class="pre">'last'</span></code>, <code class="docutils literal notranslate"><span class="pre">'first_last'</span></code>, <code class="docutils literal notranslate"><span class="pre">'last_first'</span></code>)</p></li>
+<li><p><strong>prob</strong>: Confidence probability (0.0 to 1.0)</p></li>
+</ul>
+<p>Example output:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">|</span>    <span class="o">|</span> <span class="n">name</span>            <span class="o">|</span> <span class="n">parsed_name</span>                                                    <span class="o">|</span>
+<span class="o">|---</span><span class="p">:</span><span class="o">|</span><span class="p">:</span><span class="o">----------------|</span><span class="p">:</span><span class="o">---------------------------------------------------------------|</span>
+<span class="o">|</span>  <span class="mi">0</span> <span class="o">|</span> <span class="n">Jan</span>             <span class="o">|</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Jan&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="s1">&#39;prob&#39;</span><span class="p">:</span> <span class="mf">0.677</span><span class="p">}</span>             <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">1</span> <span class="o">|</span> <span class="n">Nicholas</span> <span class="n">Turner</span> <span class="o">|</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Nicholas Turner&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;first_last&#39;</span><span class="p">,</span> <span class="s1">&#39;prob&#39;</span><span class="p">:</span> <span class="mf">0.999</span><span class="p">}</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">2</span> <span class="o">|</span> <span class="n">Petersen</span>        <span class="o">|</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Petersen&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;last&#39;</span><span class="p">,</span> <span class="s1">&#39;prob&#39;</span><span class="p">:</span> <span class="mf">0.534</span><span class="p">}</span>        <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">3</span> <span class="o">|</span> <span class="n">Nichols</span> <span class="n">Richard</span> <span class="o">|</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Nichols Richard&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;last_first&#39;</span><span class="p">,</span> <span class="s1">&#39;prob&#39;</span><span class="p">:</span> <span class="mf">0.999</span><span class="p">}</span> <span class="o">|</span>
+</pre></div>
+</div>
+</section>
+<section id="working-with-results">
+<h3>Working with Results<a class="headerlink" href="#working-with-results" title="Link to this heading"></a></h3>
+<p>You can extract specific information from the parsed results:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get just the classification types</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;name_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;parsed_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">])</span>
+
+<span class="c1"># Get confidence scores</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;confidence&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;parsed_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;prob&#39;</span><span class="p">])</span>
+
+<span class="c1"># Filter high-confidence results</span>
+<span class="n">high_confidence</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;confidence&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.9</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="custom-dataframe-column">
+<h3>Custom DataFrame Column<a class="headerlink" href="#custom-dataframe-column" title="Link to this heading"></a></h3>
+<p>If your DataFrame uses a different column name for names, specify it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># DataFrame with &#39;full_name&#39; column instead of &#39;name&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;full_name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;John Smith&#39;</span><span class="p">,</span> <span class="s1">&#39;Jane Doe&#39;</span><span class="p">]})</span>
+
+<span class="c1"># Rename column or create a &#39;name&#39; column</span>
+<span class="n">df_renamed</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;full_name&#39;</span><span class="p">:</span> <span class="s1">&#39;name&#39;</span><span class="p">})</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">ParseNames</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">df_renamed</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="batch-processing">
+<h3>Batch Processing<a class="headerlink" href="#batch-processing" title="Link to this heading"></a></h3>
+<p>For large datasets, parsernaam efficiently processes names in batches:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Large dataset</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">large_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;John Smith&#39;</span><span class="p">,</span> <span class="s1">&#39;Jane Doe&#39;</span><span class="p">,</span> <span class="s1">&#39;Kim Yeon&#39;</span><span class="p">],</span> <span class="mi">10000</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="c1"># Process efficiently with automatic batching</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">ParseNames</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">large_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="command-line-interface">
+<h2>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Link to this heading"></a></h2>
+<section id="id1">
+<h3>Basic Usage<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>Parse names from a CSV file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>parse_names<span class="w"> </span>input.csv<span class="w"> </span>-o<span class="w"> </span>output.csv<span class="w"> </span>-n<span class="w"> </span>name_column
+</pre></div>
+</div>
+</section>
+<section id="arguments">
+<h3>Arguments<a class="headerlink" href="#arguments" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>input</strong>: Input CSV file containing names to parse (required)</p></li>
+<li><p><strong>-o, –output</strong>: Output CSV file (default: <code class="docutils literal notranslate"><span class="pre">parsernaam_output.csv</span></code>)</p></li>
+<li><p><strong>-n, –names-col</strong>: Column name containing the names to parse (required)</p></li>
+</ul>
+</section>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Parse names from &#39;name&#39; column in input.csv</span>
+parse_names<span class="w"> </span>data.csv<span class="w"> </span>-o<span class="w"> </span>results.csv<span class="w"> </span>-n<span class="w"> </span>name
+
+<span class="c1"># Parse names from &#39;full_name&#39; column</span>
+parse_names<span class="w"> </span>employees.csv<span class="w"> </span>-o<span class="w"> </span>parsed_employees.csv<span class="w"> </span>-n<span class="w"> </span>full_name
+
+<span class="c1"># Use default output filename</span>
+parse_names<span class="w"> </span>names.csv<span class="w"> </span>-n<span class="w"> </span>participant_name
+</pre></div>
+</div>
+</section>
+<section id="input-file-format">
+<h3>Input File Format<a class="headerlink" href="#input-file-format" title="Link to this heading"></a></h3>
+<p>The input CSV file should contain at least one column with names:</p>
+<div class="highlight-csv notranslate"><div class="highlight"><pre><span></span>id,name,age
+1,John Smith,35
+2,Kim Yeon,28
+3,Nicholas Turner,42
+</pre></div>
+</div>
+</section>
+<section id="output-file-format">
+<h3>Output File Format<a class="headerlink" href="#output-file-format" title="Link to this heading"></a></h3>
+<p>The output CSV includes all original columns plus a <code class="docutils literal notranslate"><span class="pre">parsed_name</span></code> column:</p>
+<div class="highlight-csv notranslate"><div class="highlight"><pre><span></span>id,name,age,parsed_name
+1,John Smith,35,&quot;{&#39;name&#39;: &#39;John Smith&#39;, &#39;type&#39;: &#39;first_last&#39;, &#39;prob&#39;: 0.997}&quot;
+2,Kim Yeon,28,&quot;{&#39;name&#39;: &#39;Kim Yeon&#39;, &#39;type&#39;: &#39;last_first&#39;, &#39;prob&#39;: 0.999}&quot;
+3,Nicholas Turner,42,&quot;{&#39;name&#39;: &#39;Nicholas Turner&#39;, &#39;type&#39;: &#39;first_last&#39;, &#39;prob&#39;: 0.999}&quot;
+</pre></div>
+</div>
+</section>
+</section>
+<section id="web-interface">
+<h2>Web Interface<a class="headerlink" href="#web-interface" title="Link to this heading"></a></h2>
+<section id="gradio-demo">
+<h3>Gradio Demo<a class="headerlink" href="#gradio-demo" title="Link to this heading"></a></h3>
+<p>Try parsernaam interactively using the Gradio web interface:</p>
+<p><a class="reference external" href="https://huggingface.co/spaces/sixtyfold/parsernaam">Parsernaam on Hugging Face</a></p>
+</section>
+<section id="running-locally">
+<h3>Running Locally<a class="headerlink" href="#running-locally" title="Link to this heading"></a></h3>
+<p>You can also run the Gradio interface locally:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>gradio_app.py
+</pre></div>
+</div>
+<p>This will start a local web server where you can test name parsing interactively.</p>
+</section>
+</section>
+<section id="model-behavior">
+<h2>Model Behavior<a class="headerlink" href="#model-behavior" title="Link to this heading"></a></h2>
+<section id="single-names">
+<h3>Single Names<a class="headerlink" href="#single-names" title="Link to this heading"></a></h3>
+<p>For single names, the model classifies them as either:</p>
+<ul class="simple">
+<li><p><strong>first</strong>: Likely a first name (e.g., “John”, “Sarah”, “Raj”)</p></li>
+<li><p><strong>last</strong>: Likely a last name (e.g., “Smith”, “Patel”, “Johnson”)</p></li>
+</ul>
+</section>
+<section id="multi-word-names">
+<h3>Multi-word Names<a class="headerlink" href="#multi-word-names" title="Link to this heading"></a></h3>
+<p>For names with multiple words, the model determines the order:</p>
+<ul class="simple">
+<li><p><strong>first_last</strong>: First name followed by last name (e.g., “John Smith”)</p></li>
+<li><p><strong>last_first</strong>: Last name followed by first name (e.g., “Smith John”)</p></li>
+</ul>
+</section>
+<section id="confidence-scores">
+<h3>Confidence Scores<a class="headerlink" href="#confidence-scores" title="Link to this heading"></a></h3>
+<p>All predictions include confidence scores:</p>
+<ul class="simple">
+<li><p><strong>0.9+</strong>: Very high confidence</p></li>
+<li><p><strong>0.7-0.9</strong>: High confidence</p></li>
+<li><p><strong>0.5-0.7</strong>: Moderate confidence</p></li>
+<li><p><strong>&lt;0.5</strong>: Low confidence (consider manual review)</p></li>
+</ul>
+</section>
+</section>
+<section id="cultural-considerations">
+<h2>Cultural Considerations<a class="headerlink" href="#cultural-considerations" title="Link to this heading"></a></h2>
+<p>The model is particularly effective for:</p>
+<ul class="simple">
+<li><p><strong>Indian names</strong>: Trained on Indian voter registration data</p></li>
+<li><p><strong>Western names</strong>: Trained on US voter registration data</p></li>
+<li><p><strong>Mixed cultural contexts</strong>: Handles various naming conventions</p></li>
+</ul>
+<p>For Indian names specifically, the model assumes that last names are typically shared among family members, providing culturally-aware parsing.</p>
+</section>
+<section id="error-handling">
+<h2>Error Handling<a class="headerlink" href="#error-handling" title="Link to this heading"></a></h2>
+<p>Parsernaam gracefully handles various edge cases:</p>
+<ul class="simple">
+<li><p><strong>Empty names</strong>: Returns appropriate default values</p></li>
+<li><p><strong>Special characters</strong>: Processes names with Unicode characters</p></li>
+<li><p><strong>Very long names</strong>: Truncates to model’s sequence length limit</p></li>
+<li><p><strong>Missing data</strong>: Handles NaN values in DataFrames</p></li>
+</ul>
+</section>
+<section id="performance-tips">
+<h2>Performance Tips<a class="headerlink" href="#performance-tips" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Batch Processing</strong>: Process multiple names at once for better performance</p></li>
+<li><p><strong>GPU Acceleration</strong>: Ensure CUDA is available for faster inference</p></li>
+<li><p><strong>Model Caching</strong>: Models are automatically cached after first load</p></li>
+<li><p><strong>Memory Management</strong>: For very large datasets, consider processing in chunks</p></li>
+</ol>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<section id="common-issues">
+<h3>Common Issues<a class="headerlink" href="#common-issues" title="Link to this heading"></a></h3>
+<p><strong>Low Confidence Scores</strong>: Some names may be ambiguous. Consider:</p>
+<ul class="simple">
+<li><p>Checking if the name follows expected patterns</p></li>
+<li><p>Using additional context clues if available</p></li>
+<li><p>Manual review for confidence &lt; 0.7</p></li>
+</ul>
+<p><strong>Unexpected Classifications</strong>: The model may occasionally misclassify:</p>
+<ul class="simple">
+<li><p>Very unusual or rare names</p></li>
+<li><p>Names from cultures not well-represented in training data</p></li>
+<li><p>Names with unconventional spellings</p></li>
+</ul>
+<p><strong>Performance Issues</strong>: For slow processing:</p>
+<ul class="simple">
+<li><p>Ensure you’re using batch processing (passing DataFrames vs individual names)</p></li>
+<li><p>Check if CUDA is available and properly configured</p></li>
+<li><p>Consider processing large datasets in smaller chunks</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Rajashekar Chintalapati and Gaurav Sood.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
