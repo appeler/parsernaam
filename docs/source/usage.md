@@ -122,7 +122,7 @@ parse_names names.csv -n participant_name
 
 The input CSV file should contain at least one column with names:
 
-```csv
+```text
 id,name,age
 1,John Smith,35
 2,Kim Yeon,28
@@ -133,7 +133,7 @@ id,name,age
 
 The output CSV includes all original columns plus a `parsed_name` column:
 
-```csv
+```text
 id,name,age,parsed_name
 1,John Smith,35,"{'name': 'John Smith', 'type': 'first_last', 'prob': 0.997}"
 2,Kim Yeon,28,"{'name': 'Kim Yeon', 'type': 'last_first', 'prob': 0.999}"

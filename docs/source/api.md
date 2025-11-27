@@ -43,6 +43,7 @@ This section provides detailed documentation of the parsernaam API.
    :members:
    :undoc-members:
    :show-inheritance:
+   :no-index:
 ```
 
 ## Package Information
