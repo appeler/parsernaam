@@ -13,17 +13,19 @@ sys.path.insert(0, os.path.abspath('../../'))
 project = 'parsernaam'
 copyright = '2023, Rajashekar Chintalapati and Gaurav Sood'
 author = 'Rajashekar Chintalapati and Gaurav Sood'
-release = '0.0.1'
+release = '0.2.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.autodoc.typehints',
+    'sphinx_autodoc_typehints',
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
     'sphinx.ext.githubpages',
+    'sphinx_copybutton',
+    'myst_parser',
 ]
 
 # Napoleon settings
@@ -49,11 +51,34 @@ autodoc_default_options = {
 }
 
 # Type hints settings
-autodoc_typehints = 'description'
+typehints_defaults = 'comma'
+typehints_use_signature = True
+typehints_use_signature_return = True
 autodoc_typehints_description_target = 'documented'
 autodoc_type_aliases = {
     'DataFrame': 'pandas.DataFrame',
     'Tensor': 'torch.Tensor',
+}
+
+# MyST settings
+myst_enable_extensions = [
+    'colon_fence',
+    'deflist',
+    'dollarmath',
+    'fieldlist',
+    'html_admonition',
+    'html_image',
+    'replacements',
+    'smartquotes',
+    'strikethrough',
+    'substitution',
+    'tasklist',
+]
+
+# Source file settings - prefer markdown over rst  
+source_suffix = {
+    '.md': 'myst_parser',
+    '.rst': 'restructuredtext',
 }
 
 templates_path = ['_templates']
@@ -64,22 +89,25 @@ language = 'en'
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'furo'
 html_static_path = ['_static']
 
-# Theme options
+# Furo theme options
 html_theme_options = {
-    'canonical_url': '',
-    'analytics_id': '',
-    'logo_only': False,
-    'display_version': True,
-    'prev_next_buttons_location': 'bottom',
-    'style_external_links': False,
-    'vcs_pageview_mode': '',
-    'style_nav_header_background': 'white',
-    'collapse_navigation': True,
-    'sticky_navigation': True,
-    'navigation_depth': 4,
-    'includehidden': True,
-    'titles_only': False
+    "source_repository": "https://github.com/appeler/parsernaam",
+    "source_branch": "main",
+    "source_directory": "docs/source/",
+    "sidebar_hide_name": False,
+    "navigation_with_keys": True,
+    "top_of_page_button": "edit",
 }
+
+html_title = f"{project} {release}"
+html_logo = None
+html_favicon = None
+
+# Copy button configuration
+copybutton_prompt_text = r">>> |\.\.\. |\$ "
+copybutton_prompt_is_regexp = True
+copybutton_line_continuation_character = "\\"
+copybutton_here_doc_delimiter = "EOF"

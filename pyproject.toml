@@ -1,14 +1,14 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling>=1.21.1"]
+build-backend = "hatchling.build"
 
 [project]
 name = "parsernaam"
-version = "0.1.1"
+version = "0.2.0"
 description = "ML-assisted name parser for Indian and international names"
 readme = "README.md"
-requires-python = ">=3.8"
-license = "MIT"
+requires-python = ">=3.11"
+license = {text = "MIT"}
 authors = [
   { name = "Rajashekar Chintalapati", email = "rajshekar.ch@gmail.com" },
   { name = "Gaurav Sood", email = "gsood07@gmail.com" }
@@ -16,9 +16,6 @@ authors = [
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
@@ -37,31 +34,139 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["check-manifest", "black", "flake8", "isort"]
-test = ["pytest>=6.0", "coverage", "tox"]
-docs = ["sphinx>=7.0", "sphinx_rtd_theme>=2.0"]
+docs = [
+    "sphinx>=7.0",
+    "furo>=2024.1.29",
+    "sphinx-autodoc-typehints>=1.25",
+    "sphinx-copybutton>=0.5",
+    "myst-parser>=2.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "pytest-xdist>=3.0",
+    "ruff>=0.7.0",
+    "mypy>=1.0",
+    "pre-commit>=3.0",
+]
+test = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "pytest-xdist>=3.0",
+]
 
 [project.urls]
-"Homepage" = "https://github.com/appeler/parsernaam"
-"Repository" = "https://github.com/appeler/parsernaam"
-"Bug Tracker" = "https://github.com/appeler/parsernaam/issues"
+Homepage = "https://github.com/appeler/parsernaam"
+Documentation = "https://appeler.github.io/parsernaam/"
+Repository = "https://github.com/appeler/parsernaam"
+Issues = "https://github.com/appeler/parsernaam/issues"
+Changelog = "https://github.com/appeler/parsernaam/blob/main/CHANGELOG.md"
 
 [project.scripts]
 parse_names = "parsernaam.parse:main"
 
-[tool.setuptools]
-include-package-data = true
-
-[tool.setuptools.packages.find]
-include = ["parsernaam*"]
-
-[tool.setuptools.package-data]
-parsernaam = [
-  "notebooks/*.ipynb",
-  "models/*.pt",
-  "models/*.joblib"
+[tool.hatch.build]
+exclude = [
+    "/.github",
+    "/.venv",
+    "/docs",
+    "/tests",
+    "/.gitignore",
+    "/.pre-commit-config.yaml",
 ]
 
+[tool.hatch.build.targets.wheel]
+packages = ["parsernaam"]
+
+# Ruff configuration
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    ".venv",
+    "docs",
+    ".eggs",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+]
+ignore = [
+    "E501",  # line too long (handled by formatter)
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]  # imported but unused
+"tests/*" = ["S101"]  # use of assert
+
+[tool.ruff.lint.isort]
+known-first-party = ["parsernaam"]
+
+[tool.ruff.format]
+# Use single quotes for strings
+quote-style = "double"
+# Prefer hanging indents for function calls
+indent-style = "space"
+
+
 [tool.pytest.ini_options]
-python_files = "test_*.py"
+minversion = "7.0"
 testpaths = ["tests"]
+python_files = "test_*.py"
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--cov=parsernaam",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-report=xml",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+]
+
+# mypy configuration
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+check_untyped_defs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+ignore_errors = true
+
+# Coverage configuration
+[tool.coverage.run]
+source = ["parsernaam"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]

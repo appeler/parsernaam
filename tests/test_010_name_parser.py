@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 """
 test_010_name_parser
 """
 
 import unittest
+
 import pandas as pd
 
 from parsernaam.parse import ParseNames

@@ -1,24 +1,23 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import sys
-from typing import Optional
+
 import pandas as pd
 
+from .config import ModelConfig
 from .naam import Parsernaam
 from .utils import get_args
-from .config import ModelConfig
 
 
 class ParseNames(Parsernaam):
     """
     Main API class for parsing names using machine learning models.
-    
+
     This class provides the primary interface for name parsing functionality,
     extending the base Parsernaam class with predefined model file paths.
     Uses LSTM neural networks to classify names as first/last or determine
     positional ordering in multi-word names.
-    
+
     Example:
         >>> import pandas as pd
         >>> from parsernaam.parse import ParseNames
@@ -28,9 +27,9 @@ class ParseNames(Parsernaam):
         {'name': 'John Smith', 'type': 'first_last', 'prob': 0.998}
     """
 
-    MODEL_FN = ModelConfig.MODEL_FILES['single']
-    MODEL_POS_FN = ModelConfig.MODEL_FILES['positional'] 
-    VOCAB_FN = ModelConfig.MODEL_FILES['vocab']
+    MODEL_FN = ModelConfig.MODEL_FILES["single"]
+    MODEL_POS_FN = ModelConfig.MODEL_FILES["positional"]
+    VOCAB_FN = ModelConfig.MODEL_FILES["vocab"]
 
     @classmethod
     def parse(cls, df: pd.DataFrame) -> pd.DataFrame:
@@ -43,16 +42,16 @@ class ParseNames(Parsernaam):
         Returns:
             DataFrame with parsed names
         """
-        return super().parse(df, cls.MODEL_FN , cls.MODEL_POS_FN, cls.VOCAB_FN)
-    
+        return super().parse(df, cls.MODEL_FN, cls.MODEL_POS_FN, cls.VOCAB_FN)
+
 
 parse_names = ParseNames.parse
 
 
-def main() -> Optional[int]:
+def main() -> int | None:
     """
     Main method to parse names
-    
+
     Returns:
         Exit code (None for success)
     """
