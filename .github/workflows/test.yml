@@ -28,8 +28,13 @@ jobs:
 
       - name: Install project with test dependencies
         run: |
-          pip install .[test]
-          pip install pytest  # fallback just in case [test] doesn't include it properly
+          pip install -e ".[test]"
+
+      - name: Verify test dependencies
+        run: |
+          python -c "import pytest; print(f'pytest version: {pytest.__version__}')"
+          python -c "import pytest_cov; print(f'pytest-cov available')" || echo "pytest-cov not found"
+          pip list | grep pytest
 
       - name: Run tests with pytest
         run: pytest
