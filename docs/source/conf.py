@@ -75,11 +75,8 @@ myst_enable_extensions = [
     'tasklist',
 ]
 
-# Source file settings - prefer markdown over rst  
-source_suffix = {
-    '.md': 'myst_parser',
-    '.rst': 'restructuredtext',
-}
+# Source file settings - support both markdown and rst
+source_suffix = ['.rst', '.md']
 
 templates_path = ['_templates']
 exclude_patterns = []
@@ -90,7 +87,7 @@ language = 'en'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'furo'
-html_static_path = ['_static']
+html_static_path = []
 
 # Furo theme options
 html_theme_options = {
