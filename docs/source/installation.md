@@ -2,7 +2,7 @@
 
 ## Requirements
 
-Parsernaam requires Python 3.11+ and has the following dependencies:
+Parsernaam requires Python 3.11-3.12 and has the following dependencies:
 
 - **pandas**: For data manipulation and analysis
 - **torch**: PyTorch for neural network models
@@ -100,5 +100,5 @@ pip install --upgrade parsernaam
 If you encounter issues:
 
 1. Check the [GitHub Issues](https://github.com/appeler/parsernaam/issues) page
-2. Ensure you're using a supported Python version (3.11+)
+2. Ensure you're using a supported Python version (3.11-3.12)
 3. Try reinstalling with `pip install --force-reinstall parsernaam`
