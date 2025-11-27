@@ -133,8 +133,6 @@ addopts = [
     "--strict-markers",
     "--cov=parsernaam",
     "--cov-report=term-missing",
-    "--cov-report=html",
-    "--cov-report=xml",
 ]
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",

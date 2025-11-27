@@ -54,37 +54,7 @@ This section provides detailed documentation of the parsernaam API.
    :show-inheritance:
 ```
 
-## Quick Reference
-
-### Main Functions
-
-The primary interface for name parsing:
-
-```{eval-rst}
-.. autofunction:: parsernaam.parse.ParseNames.parse
-```
-
-### Core Classes
-
-```{eval-rst}
-.. autoclass:: parsernaam.parse.ParseNames
-   :members:
-   :undoc-members:
-```
-
-```{eval-rst}
-.. autoclass:: parsernaam.naam.Parsernaam  
-   :members:
-   :undoc-members:
-```
-
-```{eval-rst}
-.. autoclass:: parsernaam.model.LSTM
-   :members:
-   :undoc-members:
-```
-
-### Usage Examples
+## Usage Examples
 
 Basic parsing:
 
