@@ -28,19 +28,19 @@ jobs:
           python-version: "3.11"
       
       - name: Install uv
-        uses: astral-sh/setup-uv@v3
+        uses: astral-sh/setup-uv@v7
         with:
-          version: "latest"
+          enable-cache: "auto"
       
       - name: Install dependencies
         run: |
-          uv pip install --system -e ".[docs]"
+          uv sync --extra docs
       
       - name: Build documentation
         run: |
           cd docs
-          make clean
-          make html
+          uv run make clean
+          uv run make html
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
