@@ -1,6 +1,4 @@
-"""
-To process arguments from the command line.
-"""
+"""To process arguments from the command line."""
 
 import argparse
 
@@ -8,8 +6,7 @@ import argparse
 def get_args(
     argv: list[str], description: str, epilog: str, default_out: str
 ) -> argparse.Namespace:
-    """
-    Parse command line arguments for the parsernaam CLI tool.
+    """Parse command line arguments for the parsernaam CLI tool.
 
     Args:
         argv: List of command line arguments
@@ -21,7 +18,8 @@ def get_args(
         Parsed command line arguments namespace
 
     Example:
-        >>> args = get_args(['input.csv', '-o', 'output.csv'],
+        >>> from parsernaam.utils import get_args
+        >>> args = get_args(['input.csv', '-o', 'output.csv', '-n', 'name'],
         ...                 'Parse names', 'Example usage', 'out.csv')
         >>> args.input
         'input.csv'

@@ -1,20 +1,30 @@
+"""Gradio web interface for interactively parsing names."""
+
 import gradio as gr
 import pandas as pd
 
-pd.set_option('display.max_colwidth', None)
 from parsernaam.parse import ParseNames
 
+pd.set_option("display.max_colwidth", None)
 
-def parse_names(names):
+
+def parse_names(names: str) -> str:
+    """Parse a comma-separated string of names and format the results.
+
+    Args:
+        names: Comma-separated names to parse.
+
+    Returns:
+        Human-readable summary of each parsed name.
+    """
     given_names = names.split(",")
-    df = pd.DataFrame({'name': given_names})
+    df = pd.DataFrame({"name": given_names})
     df = ParseNames.parse(df)
-    print(df)
     output = ""
-    for parsed_name in df['parsed_name']:
-        name = parsed_name['name']
-        name_type = parsed_name['type']
-        prob = parsed_name['prob']
+    for parsed_name in df["parsed_name"]:
+        name = parsed_name["name"]
+        name_type = parsed_name["type"]
+        prob = parsed_name["prob"]
         output += f"{name} (type: {name_type}, score: {prob:.2f})\n"
         output += "\n"
     return output

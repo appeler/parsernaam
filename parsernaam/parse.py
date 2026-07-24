@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""Public API and CLI entry point for parsing names."""
 
 import sys
 
@@ -10,8 +11,7 @@ from .utils import get_args
 
 
 class ParseNames(Parsernaam):
-    """
-    Main API class for parsing names using machine learning models.
+    """Main API class for parsing names using machine learning models.
 
     This class provides the primary interface for name parsing functionality,
     extending the base Parsernaam class with predefined model file paths.
@@ -23,8 +23,11 @@ class ParseNames(Parsernaam):
         >>> from parsernaam.parse import ParseNames
         >>> df = pd.DataFrame({'name': ['John Smith', 'Kim Yeon']})
         >>> results = ParseNames.parse(df)
-        >>> print(results['parsed_name'][0])
-        {'name': 'John Smith', 'type': 'first_last', 'prob': 0.998}
+        >>> parsed = results['parsed_name'][0]
+        >>> parsed['name'], parsed['type']
+        ('John Smith', 'first_last')
+        >>> parsed['prob'] > 0.5
+        True
     """
 
     MODEL_FN = ModelConfig.MODEL_FILES["single"]
@@ -33,8 +36,7 @@ class ParseNames(Parsernaam):
 
     @classmethod
     def parse(cls, df: pd.DataFrame) -> pd.DataFrame:
-        """
-        Parse names
+        """Parse names.
 
         Args:
             df: DataFrame with names
@@ -42,20 +44,18 @@ class ParseNames(Parsernaam):
         Returns:
             DataFrame with parsed names
         """
-        return super().parse(df, cls.MODEL_FN, cls.MODEL_POS_FN, cls.VOCAB_FN)
+        return cls._parse_with_models(df, cls.MODEL_FN, cls.MODEL_POS_FN, cls.VOCAB_FN)
 
 
 parse_names = ParseNames.parse
 
 
 def main() -> int | None:
-    """
-    Main method to parse names
+    """Main method to parse names.
 
     Returns:
         Exit code (None for success)
     """
-
     description = "Parse names"
     epilog = "Example: parsernaam -o output.csv input.csv"
     default_out = "output.csv"

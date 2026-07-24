@@ -1,6 +1,4 @@
-"""
-ParserNaam is a package for parsing names.
-"""
+"""ParserNaam is a package for parsing names."""
 
 from parsernaam.parse import ParseNames
 

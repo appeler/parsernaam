@@ -1,3 +1,5 @@
+"""LSTM model architecture used for name classification."""
+
 import torch
 import torch.nn as nn
 
@@ -41,7 +43,7 @@ class LSTM(nn.Module):
         Returns:
             Log-softmax probabilities for each class [batch_size, num_classes]
         """
-        embedded = self.embedding(input.type(torch.IntTensor).to(input.device))
+        embedded = self.embedding(input.to(dtype=torch.int32))
         # embedded = embedded.view(embedded.shape[0],-1,embedded.shape[3])
         h0 = torch.zeros(self.num_layers, embedded.size(0), self.hidden_size).to(
             input.device

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""Core ML inference pipeline for parsing names."""
 
 import logging
 from importlib import resources
@@ -32,19 +33,16 @@ class VocabCache(TypedDict):
 
 
 class Parsernaam:
-    """
-    Parse names
-    """
+    """Parse names."""
 
     _models_cache: ClassVar[dict[str, dict[str, torch.nn.Module]]] = {}
     _vocab_cache: ClassVar[VocabCache | None] = None
 
     @classmethod
-    def parse(
+    def _parse_with_models(
         cls, df: pd.DataFrame, model_fn: str, model_fn_pos: str, vocab_fn: str
     ) -> pd.DataFrame:
-        """
-        Parse names using ML models
+        """Parse names using ML models.
 
         Args:
             df: DataFrame with 'name' column containing names to parse
@@ -57,7 +55,6 @@ class Parsernaam:
 
         Raises:
             ValueError: If required 'name' column is missing
-            FileNotFoundError: If model files cannot be found
         """
         logger.info(f"Starting name parsing for DataFrame with {len(df)} rows")
 
@@ -74,14 +71,14 @@ class Parsernaam:
             result_df = df.copy()
             result_df["parsed_name"] = []
             return result_df
-        MODEL = resources.files("parsernaam") / model_fn
-        MODEL_POS = resources.files("parsernaam") / model_fn_pos
-        VOCAB = resources.files("parsernaam") / vocab_fn
+        model_path = resources.files("parsernaam") / model_fn
+        model_pos_path = resources.files("parsernaam") / model_fn_pos
+        vocab_path = resources.files("parsernaam") / vocab_fn
 
         # Load vocabulary with caching
         if cls._vocab_cache is None:
-            logger.info(f"Loading vocabulary from {VOCAB}")
-            vectorizer = joblib.load(VOCAB)
+            logger.info(f"Loading vocabulary from {vocab_path}")
+            vectorizer = joblib.load(vocab_path)
             vocabulary_list = list(vectorizer.get_feature_names_out())
             cls._vocab_cache = {
                 "vocab": vocabulary_list,
@@ -106,22 +103,24 @@ class Parsernaam:
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
         # Initialize models with caching
-        cache_key = f"{MODEL}_{MODEL_POS}_{device}"
+        cache_key = f"{model_path}_{model_pos_path}_{device}"
         if cache_key not in cls._models_cache:
             logger.info(f"Loading models on device: {device}")
 
-            logger.debug(f"Loading single name model from {MODEL}")
+            logger.debug(f"Loading single name model from {model_path}")
             single_name_model = LSTM(
                 embedding_vocab_size,
                 hidden_layer_size,
                 num_single_categories,
                 num_layers=ModelConfig.NUM_LAYERS,
             )
-            single_name_model.load_state_dict(torch.load(MODEL, map_location=device))
+            single_name_model.load_state_dict(
+                torch.load(str(model_path), map_location=device, weights_only=True)
+            )
             single_name_model.to(device)
             single_name_model.eval()
 
-            logger.debug(f"Loading positional name model from {MODEL_POS}")
+            logger.debug(f"Loading positional name model from {model_pos_path}")
             positional_name_model = LSTM(
                 embedding_vocab_size,
                 hidden_layer_size,
@@ -129,7 +128,7 @@ class Parsernaam:
                 num_layers=ModelConfig.NUM_LAYERS,
             )
             positional_name_model.load_state_dict(
-                torch.load(MODEL_POS, map_location=device)
+                torch.load(str(model_pos_path), map_location=device, weights_only=True)
             )
             positional_name_model.to(device)
             positional_name_model.eval()
