@@ -2,7 +2,7 @@
 
 import logging
 from importlib import resources
-from typing import Any
+from typing import ClassVar, TypedDict
 
 import joblib
 import pandas as pd
@@ -15,13 +15,29 @@ from .model import LSTM
 logger = logging.getLogger(__name__)
 
 
+class ParsedNameResult(TypedDict):
+    """Structure for parsed name result."""
+
+    name: str
+    type: str
+    prob: float
+
+
+class VocabCache(TypedDict):
+    """Structure for vocabulary cache."""
+
+    vocab: list[str]
+    all_letters: str
+    n_letters: int
+
+
 class Parsernaam:
     """
     Parse names
     """
 
-    _models_cache: dict[str, dict[str, torch.nn.Module]] = {}
-    _vocab_cache: dict[str, Any] | None = None
+    _models_cache: ClassVar[dict[str, dict[str, torch.nn.Module]]] = {}
+    _vocab_cache: ClassVar[VocabCache | None] = None
 
     @classmethod
     def parse(
@@ -144,9 +160,13 @@ class Parsernaam:
                 pass
             return tensor
 
-        def parse_single_name(name_input: Any) -> dict[str, Any]:
+        def parse_single_name(name_input: str | None) -> ParsedNameResult:
             if not isinstance(name_input, str) or not name_input.strip():
-                return {"name": name_input, "type": "unknown", "prob": 0.0}
+                return {
+                    "name": str(name_input) if name_input is not None else "",
+                    "type": "unknown",
+                    "prob": 0.0,
+                }
 
             name_parts = name_input.split()
             name_tensor = convert_name_to_tensor(name_input)
@@ -160,7 +180,7 @@ class Parsernaam:
                     probabilities = torch.exp(model_output)
                     predicted_class_index = torch.argmax(probabilities)
                     predicted_name_type = single_name_categories[
-                        predicted_class_index.item()
+                        int(predicted_class_index.item())
                     ]
                 else:
                     model_output = positional_name_model(
@@ -169,7 +189,7 @@ class Parsernaam:
                     probabilities = torch.exp(model_output)
                     predicted_class_index = torch.argmax(probabilities)
                     predicted_name_type = positional_categories[
-                        predicted_class_index.item()
+                        int(predicted_class_index.item())
                     ]
                 return {
                     "name": name_input,
