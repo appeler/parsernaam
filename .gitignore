@@ -1,9 +1,9 @@
 .*
 !.gitignore
 !.gitattributes
-!.travis.yml
-!.pep8speaks.yml
 !.github
+!.copier-answers.yml
+!.pre-commit-config.yaml
 *.pyc
 *.log
 output.csv
@@ -15,5 +15,4 @@ parsernaam.egg-info/
 dev/
 docs/build
 docs/_build
-docs/source/_build
 .DS_Store
