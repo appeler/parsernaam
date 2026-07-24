@@ -35,8 +35,20 @@ import pandas as pd
 from parsernaam.parse import ParseNames
 
 # Create DataFrame with names to parse
-df = pd.DataFrame({'name': ['Jan', 'Nicholas Turner', 'Petersen', 'Nichols Richard', 'Piet',
-                           'John Smith', 'Janssen', 'Kim Yeon']})
+df = pd.DataFrame(
+    {
+        "name": [
+            "Jan",
+            "Nicholas Turner",
+            "Petersen",
+            "Nichols Richard",
+            "Piet",
+            "John Smith",
+            "Janssen",
+            "Kim Yeon",
+        ]
+    }
+)
 
 # Parse names using ML models
 results = ParseNames.parse(df)

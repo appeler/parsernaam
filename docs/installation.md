@@ -54,7 +54,8 @@ from parsernaam.parse import ParseNames
 
 # Test with a simple name
 import pandas as pd
-df = pd.DataFrame({'name': ['John Smith']})
+
+df = pd.DataFrame({"name": ["John Smith"]})
 result = ParseNames.parse(df)
 print(result)
 ```
@@ -70,6 +71,7 @@ To check if CUDA is available:
 
 ```python
 import torch
+
 print(f"CUDA available: {torch.cuda.is_available()}")
 ```
 

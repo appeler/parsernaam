@@ -63,7 +63,7 @@ Basic parsing:
 from parsernaam.parse import ParseNames
 import pandas as pd
 
-df = pd.DataFrame({'name': ['John Smith', 'Jane Doe']})
+df = pd.DataFrame({"name": ["John Smith", "Jane Doe"]})
 results = ParseNames.parse(df)
 ```
 
@@ -81,6 +81,10 @@ Command line utilities:
 ```python
 from parsernaam.utils import get_args
 
-args = get_args(['input.csv', '-o', 'output.csv', '-n', 'name'], 
-                'Parse names', 'Example usage', 'out.csv')
+args = get_args(
+    ["input.csv", "-o", "output.csv", "-n", "name"],
+    "Parse names",
+    "Example usage",
+    "out.csv",
+)
 ```

@@ -13,16 +13,20 @@ import pandas as pd
 from parsernaam.parse import ParseNames
 
 # Create DataFrame with names to parse
-df = pd.DataFrame({'name': [
-    'Jan', 
-    'Nicholas Turner', 
-    'Petersen', 
-    'Nichols Richard', 
-    'Piet',
-    'John Smith', 
-    'Janssen', 
-    'Kim Yeon'
-]})
+df = pd.DataFrame(
+    {
+        "name": [
+            "Jan",
+            "Nicholas Turner",
+            "Petersen",
+            "Nichols Richard",
+            "Piet",
+            "John Smith",
+            "Janssen",
+            "Kim Yeon",
+        ]
+    }
+)
 
 # Parse names using ML models
 results = ParseNames.parse(df)
@@ -52,13 +56,13 @@ You can extract specific information from the parsed results:
 
 ```python
 # Get just the classification types
-df['name_type'] = df['parsed_name'].apply(lambda x: x['type'])
+df["name_type"] = df["parsed_name"].apply(lambda x: x["type"])
 
 # Get confidence scores
-df['confidence'] = df['parsed_name'].apply(lambda x: x['prob'])
+df["confidence"] = df["parsed_name"].apply(lambda x: x["prob"])
 
 # Filter high-confidence results
-high_confidence = df[df['confidence'] > 0.9]
+high_confidence = df[df["confidence"] > 0.9]
 ```
 
 ### Custom DataFrame Column
@@ -67,10 +71,10 @@ If your DataFrame uses a different column name for names, specify it:
 
 ```python
 # DataFrame with 'full_name' column instead of 'name'
-df = pd.DataFrame({'full_name': ['John Smith', 'Jane Doe']})
+df = pd.DataFrame({"full_name": ["John Smith", "Jane Doe"]})
 
 # Rename column or create a 'name' column
-df_renamed = df.rename(columns={'full_name': 'name'})
+df_renamed = df.rename(columns={"full_name": "name"})
 results = ParseNames.parse(df_renamed)
 ```
 
@@ -81,9 +85,10 @@ For large datasets, parsernaam efficiently processes names in batches:
 ```python
 # Large dataset
 import numpy as np
-large_df = pd.DataFrame({
-    'name': np.random.choice(['John Smith', 'Jane Doe', 'Kim Yeon'], 10000)
-})
+
+large_df = pd.DataFrame(
+    {"name": np.random.choice(["John Smith", "Jane Doe", "Kim Yeon"], 10000)}
+)
 
 # Process efficiently with automatic batching
 results = ParseNames.parse(large_df)
