@@ -3,6 +3,7 @@
 [![image](https://github.com/appeler/parsernaam/workflows/test/badge.svg)](https://github.com/appeler/parsernaam/actions?query=workflow%3Atest)
 [![image](https://img.shields.io/pypi/v/parsernaam.svg)](https://pypi.python.org/pypi/parsernaam)
 [![image](https://static.pepy.tech/badge/parsernaam)](https://pepy.tech/project/parsernaam)
+[![Models](https://img.shields.io/badge/%F0%9F%A4%97-models-yellow)](https://huggingface.co/gojiberries/parsernaam)
 
 Most common name parsers use crude pattern matching and the sequence of
 strings, e.g., the last word is the last name, to parse names. This
@@ -88,6 +89,11 @@ parse_names input.csv -o output.csv -n name_column
 The model is trained on names from the Florida Voter Registration Data
 from early 2022. The data are available on the [Harvard
 Dataverse](http://dx.doi.org/10.7910/DVN/UBIG3F)
+
+The trained classifiers and typed Parquet vocabulary are published at
+[gojiberries/parsernaam](https://huggingface.co/gojiberries/parsernaam).
+Parsernaam downloads them from an immutable Hugging Face commit on first use.
+Set `PARSERNAAM_MODEL_DIR` to use an explicitly managed local copy.
 
 # Authors
 

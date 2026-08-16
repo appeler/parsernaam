@@ -7,10 +7,12 @@ test_010_name_parser
 import unittest
 
 import pandas as pd
+import pytest
 
 from parsernaam.parse import ParseNames
 
 
+@pytest.mark.live
 class TestParseNames(unittest.TestCase):
     """
     TestParseNames

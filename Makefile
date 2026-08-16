@@ -1,4 +1,4 @@
-.PHONY: help clean install test test-cov lint format type-check docs docs-serve build upload dev-install
+.PHONY: help clean dev-install lint format type-check docstring-check test docs docs-serve build ci
 
 help: ## Show this help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
@@ -14,39 +14,33 @@ clean: ## Clean build artifacts
 	find . -type d -name __pycache__ -delete
 	find . -type f -name "*.pyc" -delete
 
-install: ## Install package
-	uv pip install -e .
-
 dev-install: ## Install package with development dependencies
-	uv pip install -e ".[dev]"
-	pre-commit install
+	uv sync --all-groups
 
 test: ## Run tests
-	pytest
-
-test-cov: ## Run tests with coverage
-	pytest --cov=parsernaam --cov-report=html --cov-report=term
+	uv run pytest
 
 lint: ## Run linter
-	ruff check .
+	uv run ruff check .
+	uv run ruff format --check .
 
 format: ## Format code
-	ruff format .
-	ruff check --fix .
+	uv run ruff format .
+	uv run ruff check --fix .
 
 type-check: ## Run type checker
-	mypy parsernaam/
+	uv run pyright
+
+docstring-check: ## Check docstring signatures
+	uv run pydoclint --config=pyproject.toml parsernaam
 
 docs: ## Build documentation
-	cd docs && make clean && make html
+	uv run sphinx-build -W --keep-going -b html docs docs/_build/html
 
 docs-serve: ## Serve documentation locally
-	cd docs/build/html && python -m http.server 8000
+	uv run python -m http.server --directory docs/_build/html 8000
 
 build: ## Build package
 	uv build
 
-upload: ## Upload to PyPI
-	uv publish
-
-ci: lint type-check test ## Run CI checks
+ci: lint type-check docstring-check test ## Run the local CI gate

@@ -39,5 +39,5 @@ class ModelConfig:
     MODEL_FILES: Final[dict[str, str]] = {
         "single": "models/parsernaam.pt",  # Single name classifier
         "positional": "models/parsernaam_pos.pt",  # Positional classifier
-        "vocab": "models/parsernaam.joblib",  # Character vocabulary
+        "vocab": "models/vocabulary.parquet",  # Character vocabulary
     }

@@ -2,13 +2,13 @@
 """Core ML inference pipeline for parsing names."""
 
 import logging
-from importlib import resources
 from typing import ClassVar, TypedDict
 
-import joblib
 import pandas as pd
+import pyarrow.parquet as pq
 import torch
 
+from ._resources import resolve_model
 from .config import ModelConfig
 from .model import LSTM
 
@@ -71,15 +71,16 @@ class Parsernaam:
             result_df = df.copy()
             result_df["parsed_name"] = []
             return result_df
-        model_path = resources.files("parsernaam") / model_fn
-        model_pos_path = resources.files("parsernaam") / model_fn_pos
-        vocab_path = resources.files("parsernaam") / vocab_fn
+        model_path = resolve_model(model_fn)
+        model_pos_path = resolve_model(model_fn_pos)
+        vocab_path = resolve_model(vocab_fn)
 
         # Load vocabulary with caching
         if cls._vocab_cache is None:
             logger.info(f"Loading vocabulary from {vocab_path}")
-            vectorizer = joblib.load(vocab_path)
-            vocabulary_list = list(vectorizer.get_feature_names_out())
+            vocabulary_list = pq.read_table(vocab_path, columns=["token"])[
+                "token"
+            ].to_pylist()
             cls._vocab_cache = {
                 "vocab": vocabulary_list,
                 "all_letters": "".join(vocabulary_list),
