@@ -34,25 +34,23 @@ class LSTM(nn.Module):
         self.fc = nn.Linear(hidden_size, output_size)
         self.softmax = nn.LogSoftmax(dim=1)
 
-    def forward(self, input: torch.Tensor) -> torch.Tensor:
+    def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
         """Forward pass through the network.
 
         Args:
-            input: Input tensor of character indices [batch_size, sequence_length]
+            input_tensor: Character indices with shape ``[batch, sequence]``.
 
         Returns:
             Log-softmax probabilities for each class [batch_size, num_classes]
         """
-        embedded = self.embedding(input.to(dtype=torch.int32))
+        embedded = self.embedding(input_tensor)
         # embedded = embedded.view(embedded.shape[0],-1,embedded.shape[3])
         h0 = torch.zeros(self.num_layers, embedded.size(0), self.hidden_size).to(
-            input.device
+            input_tensor.device
         )
         c0 = torch.zeros(self.num_layers, embedded.size(0), self.hidden_size).to(
-            input.device
+            input_tensor.device
         )
         out, _ = self.lstm(embedded, (h0, c0))
         out = out[:, -1, :]  # get the output of the last time step
-        out = self.fc(out)
-        out = self.softmax(out)
-        return out
+        return self.softmax(self.fc(out))

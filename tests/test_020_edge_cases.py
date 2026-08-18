@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """
 test_020_edge_cases
 Test edge cases and error handling for name parsing
@@ -37,6 +35,7 @@ class TestEdgeCases(unittest.TestCase):
         with pytest.raises(ValueError, match="pandas DataFrame"):
             ParseNames.parse("not a dataframe")
 
+    @pytest.mark.live
     def test_empty_strings(self):
         """Test empty and whitespace-only strings"""
         df = pd.DataFrame({"name": ["", "   ", "\t", "\n"]})
@@ -47,6 +46,7 @@ class TestEdgeCases(unittest.TestCase):
             assert parsed["type"] == "unknown"
             assert parsed["prob"] == 0.0
 
+    @pytest.mark.live
     def test_none_values(self):
         """Test None values in name column"""
         df = pd.DataFrame({"name": [None, "John", None]})
@@ -64,6 +64,7 @@ class TestEdgeCases(unittest.TestCase):
         assert valid_parsed["type"] in ["first", "last"]
         assert valid_parsed["prob"] > 0.0
 
+    @pytest.mark.live
     def test_numeric_values(self):
         """Test numeric values in name column"""
         df = pd.DataFrame({"name": [123, 45.6, np.nan]})
@@ -74,6 +75,7 @@ class TestEdgeCases(unittest.TestCase):
             assert parsed["type"] == "unknown"
             assert parsed["prob"] == 0.0
 
+    @pytest.mark.live
     def test_very_long_names(self):
         """Test names longer than sequence length"""
         long_name = "A" * 100  # Much longer than SEQUENCE_LENGTH (30)
@@ -85,6 +87,7 @@ class TestEdgeCases(unittest.TestCase):
         assert parsed["type"] in ["first", "last"]
         assert parsed["prob"] > 0.0
 
+    @pytest.mark.live
     def test_special_characters(self):
         """Test names with special characters"""
         special_names = ["José María", "O'Connor", "Anne-Marie", "João-Pedro", "Müller"]
@@ -97,6 +100,7 @@ class TestEdgeCases(unittest.TestCase):
             assert parsed["type"] in ["first", "last", "first_last", "last_first"]
             assert parsed["prob"] > 0.0
 
+    @pytest.mark.live
     def test_single_character_names(self):
         """Test single character names"""
         df = pd.DataFrame({"name": ["A", "X", "Z"]})
@@ -107,6 +111,7 @@ class TestEdgeCases(unittest.TestCase):
             assert parsed["type"] in ["first", "last"]
             assert parsed["prob"] > 0.0
 
+    @pytest.mark.live
     def test_many_word_names(self):
         """Test names with many words"""
         long_names = [
@@ -123,6 +128,7 @@ class TestEdgeCases(unittest.TestCase):
             assert parsed["type"] in ["first_last", "last_first"]
             assert parsed["prob"] > 0.0
 
+    @pytest.mark.live
     def test_mixed_case_names(self):
         """Test names with various capitalizations"""
         mixed_names = ["JOHN SMITH", "john smith", "John SMITH", "jOhN sMiTh"]
@@ -134,6 +140,7 @@ class TestEdgeCases(unittest.TestCase):
             assert parsed["type"] in ["first_last", "last_first"]
             assert parsed["prob"] > 0.0
 
+    @pytest.mark.live
     def test_model_caching(self):
         """Test that models are cached between calls"""
         df1 = pd.DataFrame({"name": ["John Smith"]})
@@ -150,9 +157,10 @@ class TestEdgeCases(unittest.TestCase):
         assert len(result2) == 1
 
         # Check cache exists
-        assert ParseNames._vocab_cache is not None
+        assert ParseNames._vocab_cache
         assert len(ParseNames._models_cache) > 0
 
+    @pytest.mark.live
     def test_dataframe_with_additional_columns(self):
         """Test DataFrame with extra columns beyond 'name'"""
         df = pd.DataFrame(

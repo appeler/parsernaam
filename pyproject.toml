@@ -1,11 +1,11 @@
 [build-system]
-requires = ["uv_build>=0.9.13,<0.13.0"]
+requires = ["uv_build>=0.12.5,<0.13"]
 build-backend = "uv_build"
 
 [project]
 name = "parsernaam"
-version = "0.2.0"
-description = "ML-assisted name parser for Indian and international names"
+version = "0.3.0"
+description = "ML-assisted first/last ordering for name strings"
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
@@ -18,6 +18,8 @@ classifiers = [
   "Intended Audience :: Developers",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Topic :: Scientific/Engineering :: Information Analysis",
   "Topic :: Software Development :: Libraries :: Python Modules",
   "Topic :: Text Processing :: Linguistic",
@@ -25,16 +27,16 @@ classifiers = [
 ]
 keywords = ["name-parser", "names", "machine-learning", "nlp", "indian-names", "lstm", "pytorch"]
 dependencies = [
-  "torch>=2.0.1",
-  "pandas>=1.5.0",
-  "joblib>=1.3.0",
-  "scikit-learn>=1.3.0"
+  "torch>=2.13,<3",
+  "pandas>=3,<4",
+  "huggingface-hub>=1.27",
+  "pyarrow>=25",
 ]
 license-files = ["LICENSE"]
 
 [project.optional-dependencies]
 web = [
-    "gradio>=4.0",
+    "gradio>=6.24,<7",
 ]
 
 [dependency-groups]
@@ -64,11 +66,6 @@ Changelog = "https://github.com/appeler/parsernaam/blob/main/CHANGELOG.md"
 [project.scripts]
 parse_names = "parsernaam.parse:main"
 
-[tool.uv.build-backend]
-module-name = "parsernaam"
-module-root = ""
-
-# Ruff configuration
 [tool.ruff]
 line-length = 88
 target-version = "py311"
@@ -76,14 +73,21 @@ extend-exclude = ["model_training"]
 
 [tool.ruff.lint]
 external = ["DOC"]
-select = ["E", "W", "F", "I", "B", "C4", "UP", "N", "D", "S", "SIM", "T20", "PT", "RUF"]
-ignore = ["D203", "D213", "B008", "C901", "E501"]
+select = [
+    "E", "W", "F", "I", "B", "C4", "UP", "N", "D", "S", "SIM", "T20", "PT", "RUF",
+    "PTH", "RET", "PIE", "FURB", "PERF", "DTZ", "LOG", "G", "TC", "FLY",
+    "RSE", "SLOT", "FA", "A", "EXE", "ICN", "PGH", "PLE", "ARG", "SLF",
+]
+# D203/D213: the google convention the fleet standard picks. W191/D206/D300:
+# ruff's own docs list these as always incompatible with `ruff format`, which
+# the standard also runs.
+ignore = ["D203", "D213", "W191", "D206", "D300", "B008", "C901", "E501"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["S101", "D"]
+"tests/**" = ["S101", "D", "ARG", "SLF"]
 "docs/**" = ["D"]
 
 [tool.pytest.ini_options]
@@ -95,14 +99,17 @@ addopts = [
     "--strict-markers",
     "--cov=parsernaam",
     "--cov-report=term-missing",
+    "-m",
+    "not live",
 ]
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "live: downloads the pinned Hugging Face artifacts",
 ]
 
 # mypy configuration
 [tool.coverage.run]
-source = ["parsernaam"]
+source = ["src/parsernaam"]
 branch = true
 
 [tool.coverage.report]
@@ -118,13 +125,11 @@ exclude_lines = [
 
 # Deptry configuration  
 [tool.deptry]
-extend_exclude = ["model_training"]
-
-[tool.deptry.per_rule_ignores]
-DEP003 = ["google"]  # google.colab is transitive dependency in notebooks
+extend_exclude = ["model_training", "docs", "htmlcov"]
+known_first_party = ["parsernaam"]
 
 [tool.pyright]
-include = ["parsernaam"]
+include = ["src"]
 typeCheckingMode = "standard"
 
 [tool.pydoclint]
@@ -134,3 +139,7 @@ check-return-types = false
 check-class-attributes = false
 allow-init-docstring = true
 exclude = '\.venv|tests|docs'
+
+[tool.uv.build-backend]
+module-name = "parsernaam"
+module-root = "src"

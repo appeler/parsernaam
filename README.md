@@ -1,112 +1,109 @@
-# Parsernaam: ML-Assisted Name Parser
+# Parsernaam
 
-[![image](https://github.com/appeler/parsernaam/workflows/test/badge.svg)](https://github.com/appeler/parsernaam/actions?query=workflow%3Atest)
-[![image](https://img.shields.io/pypi/v/parsernaam.svg)](https://pypi.python.org/pypi/parsernaam)
-[![image](https://static.pepy.tech/badge/parsernaam)](https://pepy.tech/project/parsernaam)
+[![CI](https://github.com/appeler/parsernaam/actions/workflows/ci.yml/badge.svg)](https://github.com/appeler/parsernaam/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/parsernaam.svg)](https://pypi.org/project/parsernaam/)
+[![Downloads](https://static.pepy.tech/badge/parsernaam)](https://pepy.tech/project/parsernaam)
+[![Models](https://img.shields.io/badge/%F0%9F%A4%97-models-yellow)](https://huggingface.co/gojiberries/parsernaam)
 
-Most common name parsers use crude pattern matching and the sequence of
-strings, e.g., the last word is the last name, to parse names. This
-approach is limited and fragile, especially for Indian names. We take a
-machine-learning approach to the problem. Using the large voter
-registration data in India and the US, we build machine-learning-based name
-parsers that predict whether the string is a first or last name.
+Parsernaam uses two character-level LSTM classifiers to label a single token as
+`first` or `last`, or a multi-token string as `first_last` or `last_first`. It
+is useful when name fields were not collected separately and simple word-order
+rules are inadequate.
 
-For Indian electoral rolls, we assume the last name is the word in the
-name that is shared by multiple family members. (We table the expansion
-to include compound last names\-\--extremely rare in India\-\--till the
-next iteration.)
+These labels cannot represent every naming convention. Model scores are not
+calibrated guarantees, and errors and population imbalance in the training
+records can affect predictions. Do not use the output to infer ethnicity,
+citizenship, religion, gender, eligibility, or identity, or as the sole input
+to a consequential decision.
 
-# Gradio App.
+## Installation
 
-[parsernaam on HF](https://huggingface.co/spaces/sixtyfold/parsernaam)
-
-# Installation
-
-``` bash
+```bash
 pip install parsernaam
 ```
 
-# Usage
+Install the optional Gradio interface with:
+
+```bash
+pip install "parsernaam[web]"
+```
 
 ## Python API
 
 ```python
 import pandas as pd
-from parsernaam.parse import ParseNames
 
-# Create DataFrame with names to parse
-df = pd.DataFrame(
+from parsernaam import parse_names
+
+names = pd.DataFrame(
     {
-        "name": [
+        "full_name": [
             "Jan",
             "Nicholas Turner",
-            "Petersen",
             "Nichols Richard",
-            "Piet",
-            "John Smith",
-            "Janssen",
             "Kim Yeon",
         ]
-    }
+    },
+    index=pd.Index([10, 20, 30, 40], name="row_id"),
 )
 
-# Parse names using ML models
-results = ParseNames.parse(df)
-print(results.to_markdown())
+result = parse_names(names, names_col="full_name")
+print(result[["full_name", "parsed_name"]])
 ```
 
-**Output:**
-```
-|    | name            | parsed_name                                                                   |
-|---:|:----------------|:------------------------------------------------------------------------------|
-|  0 | Jan             | {'name': 'Jan', 'type': 'first', 'prob': 0.677}                            |
-|  1 | Nicholas Turner | {'name': 'Nicholas Turner', 'type': 'first_last', 'prob': 0.999}           |
-|  2 | Petersen        | {'name': 'Petersen', 'type': 'last', 'prob': 0.534}                        |
-|  3 | Nichols Richard | {'name': 'Nichols Richard', 'type': 'last_first', 'prob': 0.999}           |
-|  4 | Piet            | {'name': 'Piet', 'type': 'first', 'prob': 0.538}                           |
-|  5 | John Smith      | {'name': 'John Smith', 'type': 'first_last', 'prob': 0.997}                |
-|  6 | Janssen         | {'name': 'Janssen', 'type': 'first', 'prob': 0.593}                        |
-|  7 | Kim Yeon        | {'name': 'Kim Yeon', 'type': 'last_first', 'prob': 0.999}                  |
-```
+`parse_names` returns a copy, preserves the input index and other columns, and
+adds `parsed_name`. Each value contains the original string, one of the four
+model labels, and its model score. Existing `parsed_name` values are replaced
+without merge suffixes.
 
-## Command Line Interface
+Invalid or blank values receive the `unknown` label and a score of `0.0`.
+
+## Command line
+
+The command-line interface uses Parquet for typed input and output:
 
 ```bash
-parse_names input.csv -o output.csv -n name_column
+parse_names input.parquet --output output.parquet --names-col full_name
 ```
 
-## Features
+The name column defaults to `name`, and the output path defaults to
+`output.parquet`.
 
-- **Machine Learning Based**: Uses LSTM neural networks trained on voter registration data
-- **Multi-language Support**: Handles Indian, Western, and other international name patterns  
-- **High Accuracy**: Confidence scores provided for each prediction
-- **Performance Optimized**: Model caching and batch processing support
-- **Robust Error Handling**: Handles edge cases like empty names, special characters, etc.
+## Model artifacts
 
-# Data
+The two PyTorch state dictionaries and non-null string vocabulary are published
+at [gojiberries/parsernaam](https://huggingface.co/gojiberries/parsernaam).
+Parsernaam downloads them from an immutable Hugging Face commit and verifies
+their SHA-256 hashes against the packaged `model_manifest.json`. Set
+`PARSERNAAM_MODEL_DIR` to use an explicitly managed local copy. The Hugging
+Face client honors its standard authentication configuration, including
+`HF_TOKEN`.
 
-The model is trained on names from the Florida Voter Registration Data
-from early 2022. The data are available on the [Harvard
-Dataverse](http://dx.doi.org/10.7910/DVN/UBIG3F)
+The repository documentation describes training records derived from Indian
+and United States voter registrations and cites the early 2022 Florida voter
+registration data at [Harvard Dataverse](https://doi.org/10.7910/DVN/UBIG3F).
+A complete row-level training manifest is not available, so use the models for
+exploration rather than population claims.
 
-# Authors
+## Development
+
+```bash
+uv sync --all-groups --all-extras
+make ci
+make docs
+```
+
+## Authors
 
 Rajashekar Chintalapati and Gaurav Sood
 
-# Contributing
+## Related projects
 
-Contributions are welcome. Please open an issue if you find a bug or
-have a feature request.
+- [naamkaran](https://github.com/appeler/naamkaran) generates synthetic name-like strings.
+- [ethnicolr](https://github.com/appeler/ethnicolr) is the canonical ethnicity-from-name package.
+- [pranaam](https://github.com/appeler/pranaam) estimates aggregate religion patterns from names.
 
-## 🔗 Adjacent Repositories
+## License
 
-- [appeler/naamkaran](https://github.com/appeler/naamkaran) — generative model for names
-- [appeler/ethnicolr2](https://github.com/appeler/ethnicolr2) — Ethnicolr implementation with new models in pytorch
-- [appeler/namesexdata](https://github.com/appeler/namesexdata) — Data on international first names and sex of people with that name
-- [appeler/pranaam](https://github.com/appeler/pranaam) — pranaam: predict religion based on name
-- [appeler/graphic_names](https://github.com/appeler/graphic_names) — Infer the gender of a person with a particular first name using Google image search and Clarifai
-
-# License
-
-The package is released under the [MIT
-License](https://opensource.org/licenses/MIT).
+Parsernaam is released under the
+[MIT License](https://github.com/appeler/parsernaam/blob/main/LICENSE).

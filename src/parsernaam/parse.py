@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """Public API and CLI entry point for parsing names."""
 
 import sys
@@ -35,36 +34,45 @@ class ParseNames(Parsernaam):
     VOCAB_FN = ModelConfig.MODEL_FILES["vocab"]
 
     @classmethod
-    def parse(cls, df: pd.DataFrame) -> pd.DataFrame:
+    def parse(cls, df: pd.DataFrame, names_col: str = "name") -> pd.DataFrame:
         """Parse names.
 
         Args:
-            df: DataFrame with names
+            df: DataFrame with names.
+            names_col: Column containing the name strings.
 
         Returns:
             DataFrame with parsed names
         """
-        return cls._parse_with_models(df, cls.MODEL_FN, cls.MODEL_POS_FN, cls.VOCAB_FN)
+        return cls._parse_with_models(
+            df, cls.MODEL_FN, cls.MODEL_POS_FN, cls.VOCAB_FN, names_col
+        )
 
 
 parse_names = ParseNames.parse
 
 
-def main() -> int | None:
-    """Main method to parse names.
+def main(argv: list[str] | None = None) -> int:
+    """Parse a Parquet file and write the typed result.
+
+    Args:
+        argv: Command-line arguments. Uses ``sys.argv`` when omitted.
 
     Returns:
-        Exit code (None for success)
+        Zero on success.
     """
     description = "Parse names"
-    epilog = "Example: parsernaam -o output.csv input.csv"
-    default_out = "output.csv"
-    args = get_args(sys.argv[1:], description, epilog, default_out)
+    epilog = "Example: parse_names input.parquet -o output.parquet -n name"
+    default_out = "output.parquet"
+    args = get_args(
+        sys.argv[1:] if argv is None else argv, description, epilog, default_out
+    )
 
-    df = pd.read_csv(args.input, encoding="utf-8")
-    df = parse_names(df)
-    df.to_csv(args.output, index=False)
+    df = pd.read_parquet(args.input)
+    result = parse_names(df, names_col=args.names_col)
+    result.to_parquet(args.output)
+    return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())

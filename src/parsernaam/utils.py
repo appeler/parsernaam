@@ -30,10 +30,9 @@ def get_args(
         epilog=epilog,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    parser.add_argument("input", default=None, help="Input file")
-    parser.add_argument("-o", "--output", default=default_out, help="Output file")
+    parser.add_argument("input", help="Input Parquet file")
     parser.add_argument(
-        "-n", "--names-col", default="name", required=True, help="Names column"
+        "-o", "--output", default=default_out, help="Output Parquet file"
     )
-    args = parser.parse_args(argv)
-    return args
+    parser.add_argument("-n", "--names-col", default="name", help="Names column")
+    return parser.parse_args(argv)
