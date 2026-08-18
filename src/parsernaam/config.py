@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """Configuration constants for parsernaam.
 
 This module contains all the hardcoded constants used throughout

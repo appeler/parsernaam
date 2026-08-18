@@ -1,0 +1,35 @@
+{
+  "artifacts": {
+    "parsernaam.pt": {
+      "format": "pytorch_state_dict",
+      "sha256": "cca072cd184be3f78a7ba53cdc2891fbc1dbb454f451cbca90d56aa7ab7333c8",
+      "size": 4273457
+    },
+    "parsernaam_pos.pt": {
+      "format": "pytorch_state_dict",
+      "sha256": "3c96af1ed82993b0b7f9ba4189560125c7ebe0f14c822232a9c62d116fa48126",
+      "size": 4273481
+    },
+    "vocabulary.parquet": {
+      "columns": {
+        "token": "string"
+      },
+      "format": "parquet",
+      "rows": 55,
+      "sha256": "9ce06bbf4a9608fc09849c707bb0ca516bbe2ef509cbbb14c86548d26c2c5bd5",
+      "size": 591
+    }
+  },
+  "intended_use": "Explore first/last ordering in name strings when separate fields are unavailable.",
+  "limitations": [
+    "Scores are model outputs, not calibrated guarantees.",
+    "The four labels cannot represent all naming conventions.",
+    "Training-record errors and population imbalance can affect predictions."
+  ],
+  "reference_dataset": {
+    "description": "Early 2022 Florida voter registration names",
+    "url": "https://doi.org/10.7910/DVN/UBIG3F"
+  },
+  "repository": "gojiberries/parsernaam",
+  "revision": "4061401e5cf9d5b903d0891fcc3c9381540883e5"
+}

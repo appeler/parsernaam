@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """
 test_020_edge_cases
 Test edge cases and error handling for name parsing
@@ -159,7 +157,7 @@ class TestEdgeCases(unittest.TestCase):
         assert len(result2) == 1
 
         # Check cache exists
-        assert ParseNames._vocab_cache is not None
+        assert ParseNames._vocab_cache
         assert len(ParseNames._models_cache) > 0
 
     @pytest.mark.live

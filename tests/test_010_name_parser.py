@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """
 test_010_name_parser
 """

@@ -10,12 +10,12 @@ clean: ## Clean build artifacts
 	rm -rf .pytest_cache/
 	rm -rf .coverage
 	rm -rf htmlcov/
-	rm -rf docs/build/
+	rm -rf docs/_build/
 	find . -type d -name __pycache__ -delete
 	find . -type f -name "*.pyc" -delete
 
 dev-install: ## Install package with development dependencies
-	uv sync --all-groups
+	uv sync --all-groups --all-extras
 
 test: ## Run tests
 	uv run pytest
@@ -32,7 +32,7 @@ type-check: ## Run type checker
 	uv run pyright
 
 docstring-check: ## Check docstring signatures
-	uv run pydoclint --config=pyproject.toml parsernaam
+	uv run pydoclint --config=pyproject.toml src
 
 docs: ## Build documentation
 	uv run sphinx-build -W --keep-going -b html docs docs/_build/html
