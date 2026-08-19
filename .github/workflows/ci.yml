@@ -20,3 +20,4 @@ jobs:
     with:
       wheel-import: parsernaam
       coverage-floor: 95
+      run-preen: true
