@@ -94,20 +94,16 @@ convention = "google"
 minversion = "7.0"
 testpaths = ["tests"]
 python_files = "test_*.py"
-addopts = [
-    "-ra",
-    "--strict-markers",
-    "--cov=parsernaam",
-    "--cov-report=term-missing",
-    "-m",
-    "not live",
-]
+addopts = ["-ra", "--strict-markers", "--cov=parsernaam", "--cov-report=term-missing", "-m", "not live", "--strict-config"]
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
     "live: downloads the pinned Hugging Face artifacts",
 ]
 
 # mypy configuration
+log_level = "INFO"
+xfail_strict = true
+filterwarnings = ["error"]
 [tool.coverage.run]
 source = ["src/parsernaam"]
 branch = true
