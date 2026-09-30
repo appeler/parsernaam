@@ -64,7 +64,7 @@ at the final real character. Adam, validation-loss early stopping, seed
 20260929, and MPS were used; the best epochs were 1 for single names and 2
 for ordering. No post-hoc calibration was fitted.
 
-The [training pipeline](https://github.com/appeler/parsernaam/tree/main/training)
+The [training pipeline](https://github.com/appeler/parsernaam/tree/8b35dae96de9401972c516c2fde78a73f4c539d5/training)
 contains preparation, training, historical comparison, and evaluation scripts.
 Source hashes, parameters, histories, code hashes, and artifact hashes are in
 the manifest and aggregate evaluation JSON. Parameter tensors were exported

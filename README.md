@@ -105,7 +105,7 @@ The original encoding is retained only in the historical evaluation harness.
 
 ## Evaluation
 
-The [training pipeline](https://github.com/appeler/parsernaam/blob/main/training/README.md) documents the source fields,
+The [training pipeline](https://github.com/appeler/parsernaam/blob/8b35dae96de9401972c516c2fde78a73f4c539d5/training/README.md) documents the source fields,
 surname-disjoint FL splits, seeded record samples, and independent baselines.
 Published and fixed-weight FL comparisons remain contaminated; NC comparisons
 measure transfer between states and can contain shared name strings. Raw scores
@@ -138,7 +138,7 @@ Release gates: case_invariance=True, case_violations=0, retrained_beats_both_bas
 <!-- evaluation:end -->
 
 The generated aggregate table is saved in
-[training/reports/summary.md](https://github.com/appeler/parsernaam/blob/main/training/reports/summary.md). The local HTML report
+[training/reports/summary.md](https://github.com/appeler/parsernaam/blob/8b35dae96de9401972c516c2fde78a73f4c539d5/training/reports/summary.md). The local HTML report
 includes score-band accuracy, ECE, support breakdowns, and 20 source-linked
 sample rows per task and state. The release uses the retrained models shown
 in the table. Record-weighted single-name accuracy improves over fixed original

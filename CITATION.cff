@@ -6,6 +6,6 @@ authors:
 - family-names: "Sood"
   given-names: "Gaurav"
 title: "parsernaam: name parser"
-version: 0.3.0
-date-released: 2026-08-17
+version: 0.4.0
+date-released: 2026-09-29
 url: "https://github.com/appeler/parsernaam"

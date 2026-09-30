@@ -105,7 +105,7 @@ log_level = "INFO"
 xfail_strict = true
 filterwarnings = ["error"]
 [tool.coverage.run]
-source = ["src/parsernaam"]
+source_pkgs = ["parsernaam"]
 branch = true
 
 [tool.coverage.report]
