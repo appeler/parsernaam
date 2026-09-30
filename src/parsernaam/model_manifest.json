@@ -1,38 +1,38 @@
 {
   "artifacts": {
     "parsernaam.safetensors": {
-      "best_val_loss": 0.3050972055414938,
+      "best_val_loss": 0.3050972067156984,
       "encoding": "padding0_unknown1",
       "format": "safetensors",
       "hidden_size": 128,
       "history": [
         {
           "epoch": 1,
-          "seconds": 72.34577520901803,
-          "train_loss": 0.2894122131312552,
+          "seconds": 85.6926395840128,
+          "train_loss": 0.289412213913986,
           "val_accuracy": 0.8942413748877773,
-          "val_loss": 0.3050972055414938
+          "val_loss": 0.3050972067156984
         },
         {
           "epoch": 2,
-          "seconds": 79.638347583008,
-          "train_loss": 0.20339492725404656,
+          "seconds": 84.04586654098239,
+          "train_loss": 0.20339492690159397,
           "val_accuracy": 0.8944465820187252,
-          "val_loss": 0.3133471882242384
+          "val_loss": 0.3133471862672307
         },
         {
           "epoch": 3,
-          "seconds": 80.5930165000027,
-          "train_loss": 0.1847090932330783,
+          "seconds": 76.06793233304052,
+          "train_loss": 0.18470909405347904,
           "val_accuracy": 0.8960882390663075,
-          "val_loss": 0.33317601946021896
+          "val_loss": 0.3331759506859228
         },
         {
           "epoch": 4,
-          "seconds": 86.86808704200666,
-          "train_loss": 0.17357404001840826,
+          "seconds": 80.75938641699031,
+          "train_loss": 0.17357403905164945,
           "val_accuracy": 0.8983711683981018,
-          "val_loss": 0.32503219360386054
+          "val_loss": 0.32503212963799355
         }
       ],
       "labels": [
@@ -41,49 +41,49 @@
       ],
       "num_layers": 2,
       "seq_len": 47,
-      "sha256": "abcda57caf7e284782b5e2ff22b7b5fcfa1fbc5d65b56dbb7a1d47f2894ed879",
+      "sha256": "b6dac3b40e3430a36dd33b80568dbeccc9b20277a2014d60d2a3241ac740c249",
       "size": 1087864
     },
     "parsernaam_pos.safetensors": {
-      "best_val_loss": 0.17389483220822358,
+      "best_val_loss": 0.17389483790848778,
       "encoding": "padding0_unknown1",
       "format": "safetensors",
       "hidden_size": 128,
       "history": [
         {
           "epoch": 1,
-          "seconds": 97.65819454204757,
-          "train_loss": 0.21930261099241577,
+          "seconds": 86.63008949998766,
+          "train_loss": 0.21930260953137407,
           "val_accuracy": 0.9244924492449245,
-          "val_loss": 0.20442165182356667
+          "val_loss": 0.20442166977679088
         },
         {
           "epoch": 2,
-          "seconds": 84.50481883296743,
-          "train_loss": 0.10923468095786136,
+          "seconds": 92.31577558297431,
+          "train_loss": 0.1092346808815615,
           "val_accuracy": 0.9366936693669367,
-          "val_loss": 0.17389483220822358
+          "val_loss": 0.17389483790848778
         },
         {
           "epoch": 3,
-          "seconds": 97.47400824999204,
-          "train_loss": 0.08807948105635596,
+          "seconds": 86.03304662497249,
+          "train_loss": 0.08807948043822651,
           "val_accuracy": 0.9383438343834384,
-          "val_loss": 0.1778412832058791
+          "val_loss": 0.1778412873801118
         },
         {
           "epoch": 4,
-          "seconds": 96.53360683302162,
-          "train_loss": 0.07688415140203632,
+          "seconds": 78.92653579096077,
+          "train_loss": 0.07688415111049114,
           "val_accuracy": 0.9376937693769377,
-          "val_loss": 0.17825279159746904
+          "val_loss": 0.17825279770159508
         },
         {
           "epoch": 5,
-          "seconds": 83.49829254200449,
-          "train_loss": 0.06865195160310669,
+          "seconds": 91.05925062502502,
+          "train_loss": 0.06865195102132027,
           "val_accuracy": 0.9394439443944395,
-          "val_loss": 0.18404390460157982
+          "val_loss": 0.18404391032419798
         }
       ],
       "labels": [
@@ -92,118 +92,13 @@
       ],
       "num_layers": 2,
       "seq_len": 47,
-      "sha256": "350ec57893856edeb84278490ae5dd20d891fac4379ebfec83572bd9c9e057b9",
+      "sha256": "bc5d6c2714ff5e2d7e027d99eca284164607320d625ecf11d90c9dc42f62ff98",
       "size": 1087864
     },
     "vocabulary.parquet": {
       "format": "parquet",
-      "sha256": "1a5cf5be114467824407fdea6b588eb8082402caed3d61765e17041ad1d7997d",
+      "sha256": "cbdaa149119994590f1bc0ee30ccce2592c3cb544d249a9b2a57f97ac4475634",
       "size": 1384
-    }
-  },
-  "conversion": {
-    "method": "SafeTensors export; every parameter tensor compared exactly with the evaluated PyTorch state dictionary",
-    "source_artifacts": {
-      "parsernaam.pt": {
-        "best_val_loss": 0.3050972055414938,
-        "encoding": "padding0_unknown1",
-        "format": "pytorch_state_dict",
-        "hidden_size": 128,
-        "history": [
-          {
-            "epoch": 1,
-            "seconds": 72.34577520901803,
-            "train_loss": 0.2894122131312552,
-            "val_accuracy": 0.8942413748877773,
-            "val_loss": 0.3050972055414938
-          },
-          {
-            "epoch": 2,
-            "seconds": 79.638347583008,
-            "train_loss": 0.20339492725404656,
-            "val_accuracy": 0.8944465820187252,
-            "val_loss": 0.3133471882242384
-          },
-          {
-            "epoch": 3,
-            "seconds": 80.5930165000027,
-            "train_loss": 0.1847090932330783,
-            "val_accuracy": 0.8960882390663075,
-            "val_loss": 0.33317601946021896
-          },
-          {
-            "epoch": 4,
-            "seconds": 86.86808704200666,
-            "train_loss": 0.17357404001840826,
-            "val_accuracy": 0.8983711683981018,
-            "val_loss": 0.32503219360386054
-          }
-        ],
-        "labels": [
-          "last",
-          "first"
-        ],
-        "num_layers": 2,
-        "seq_len": 47,
-        "sha256": "a902f674dd1545b9a7b780f1b42fe7931e5941dc3b4e829c101afa0b28697243",
-        "size": 1091253
-      },
-      "parsernaam_pos.pt": {
-        "best_val_loss": 0.17389483220822358,
-        "encoding": "padding0_unknown1",
-        "format": "pytorch_state_dict",
-        "hidden_size": 128,
-        "history": [
-          {
-            "epoch": 1,
-            "seconds": 97.65819454204757,
-            "train_loss": 0.21930261099241577,
-            "val_accuracy": 0.9244924492449245,
-            "val_loss": 0.20442165182356667
-          },
-          {
-            "epoch": 2,
-            "seconds": 84.50481883296743,
-            "train_loss": 0.10923468095786136,
-            "val_accuracy": 0.9366936693669367,
-            "val_loss": 0.17389483220822358
-          },
-          {
-            "epoch": 3,
-            "seconds": 97.47400824999204,
-            "train_loss": 0.08807948105635596,
-            "val_accuracy": 0.9383438343834384,
-            "val_loss": 0.1778412832058791
-          },
-          {
-            "epoch": 4,
-            "seconds": 96.53360683302162,
-            "train_loss": 0.07688415140203632,
-            "val_accuracy": 0.9376937693769377,
-            "val_loss": 0.17825279159746904
-          },
-          {
-            "epoch": 5,
-            "seconds": 83.49829254200449,
-            "train_loss": 0.06865195160310669,
-            "val_accuracy": 0.9394439443944395,
-            "val_loss": 0.18404390460157982
-          }
-        ],
-        "labels": [
-          "last_first",
-          "first_last"
-        ],
-        "num_layers": 2,
-        "seq_len": 47,
-        "sha256": "37893c206e9c438bf579cce2611d79e72831660f0828b31a34cfad442ee75d59",
-        "size": 1091321
-      },
-      "vocabulary.parquet": {
-        "format": "parquet",
-        "sha256": "1a5cf5be114467824407fdea6b588eb8082402caed3d61765e17041ad1d7997d",
-        "size": 1384
-      }
     }
   },
   "evaluation": {
@@ -240,7 +135,7 @@
         "single_record_weighted": 0.909437751004016
       }
     },
-    "report_sha256": "10dfec1f589a6c7245888abd986a123d650fc7632d2b87c0707d5187c5fc8e56"
+    "report_sha256": "898639345fe1bca97aeb8322913de2f072418aefd3934b29fbdecf00cf249fda"
   },
   "intended_use": "Explore first/last field patterns and ordering in Latin-script name strings.",
   "limitations": [
@@ -257,24 +152,21 @@
     "code_sha256": {
       "src/parsernaam/__init__.py": "db90dbbed366d4b9ffb592c0b186c401d96ac5c89e0744337c08566cf3ed878d",
       "src/parsernaam/_resources.py": "bf7b100ba70fe7afa90e8f89e8ddf5ce1dc172e0116a8327117e413d66f52fdf",
-      "src/parsernaam/config.py": "5410cbca633257a22f156d9334fb59dac7fcc8fb649851333d1dcb6ac627f44c",
-      "src/parsernaam/model.py": "6851673e1ff1a7b36e7766462b8db37e0bca7b185c4f72e506c311679f8f2213",
-      "src/parsernaam/naam.py": "8040e84433d381b8e9a3a9cf1942876c1b7e9dd541ed8e015bd6afa9079dacd0",
+      "src/parsernaam/config.py": "e8ea0db2ae2b04d6f6ebb6c47df911ef623de0ab4fe0efbe2daae1938f52b802",
+      "src/parsernaam/model.py": "1e385660d0a23a5e0d739c0b6578adc24b6586931be88168de9211aaaada245e",
+      "src/parsernaam/naam.py": "86572dce8cb85cbd1e13c53865d2e839c03f24883f6c2243495a235f8a80c92c",
       "src/parsernaam/parse.py": "08088c23692065a2f22cb9f894333556461e42eaf5c2cf3e37a43ead3a0e077b",
-      "src/parsernaam/text.py": "62581c729c7b3945330f699969338c194338a891c6cf695813bd04022ed55541",
+      "src/parsernaam/text.py": "c15e9d84022b0a49b7b7759367dcd6b59ab9253b05e97f0c8510919d61554e46",
       "src/parsernaam/utils.py": "3dd259c7cca5708e5c8365d996440ace8d9e37ccb87ff6d9cfe70b65d7736aa7",
       "training/__init__.py": "6ce40da307d0049079998021d969985085a9fdb15da14e023f604082ce750e5a",
       "training/common.py": "d4ee6a49994fd43da5b786b60ee307d5a1c69e1b5095ceaced233d6e110f5a75",
-      "training/evaluate.py": "32f02c5c838f0dc1cf05da46f4885ba42c07c818f23dea3787c83418f1095888",
+      "training/evaluate.py": "4946762fced3a08a67bb595dcb5b6e2aef3be26a1a913619a93e1f925cc4c949",
+      "training/legacy.py": "a836e01cb7c5611c5bc09b9f5fd1ecc823546afdecaf83acebe74aea9ff0e5d4",
       "training/prepare.py": "4064222dc4ca40ca094a79f1532c9f56b6aa154591983f02a45301507f31943a",
       "training/tasks.py": "0b3e2b9391e663d68d3a03f4506f48ab7e82b063082dbe25edd2d8fe23bc78f1",
-      "training/train.py": "ad8055f866590ea86a94ba413fbec88551e58fdb9263d6daaacdf256eca6e3be"
+      "training/train.py": "6e06b9dcbf62b2945858668785518777527b1267631ba43318257fcec217643f"
     },
-    "git_commit": "0297ed094eca2ddc8d67c04a4b9b1e1b0b98da35",
-    "normalization_equivalence_check": {
-      "change": "Casefold before uppercase also handles capital sharp-s U+1E9E. Full FL and NC raw files contain zero U+1E9E; prepared values and encoding are unchanged.",
-      "inference_preprocessing_sha256": "e0f68e3fd51beff456ad419d45a51095d6c846ae828e1db389c2b95b8be7d5c1"
-    },
+    "git_commit": "4f49908137b18239bfc89e18ef4192da2a0d4b55",
     "parameters": {
       "batch_size": 1024,
       "data": "training/data",
@@ -283,7 +175,7 @@
       "hidden_size": 128,
       "layers": 2,
       "learning_rate": 0.001,
-      "output": "training/artifacts",
+      "output": "training/runs/release-artifacts",
       "patience": 3,
       "seed": 20260929,
       "seq_len": 47
