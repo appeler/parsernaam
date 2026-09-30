@@ -1,35 +1,187 @@
 {
   "artifacts": {
-    "parsernaam.pt": {
-      "format": "pytorch_state_dict",
-      "sha256": "cca072cd184be3f78a7ba53cdc2891fbc1dbb454f451cbca90d56aa7ab7333c8",
-      "size": 4273457
+    "parsernaam.safetensors": {
+      "best_val_loss": 0.3050972067156984,
+      "encoding": "padding0_unknown1",
+      "format": "safetensors",
+      "hidden_size": 128,
+      "history": [
+        {
+          "epoch": 1,
+          "seconds": 85.6926395840128,
+          "train_loss": 0.289412213913986,
+          "val_accuracy": 0.8942413748877773,
+          "val_loss": 0.3050972067156984
+        },
+        {
+          "epoch": 2,
+          "seconds": 84.04586654098239,
+          "train_loss": 0.20339492690159397,
+          "val_accuracy": 0.8944465820187252,
+          "val_loss": 0.3133471862672307
+        },
+        {
+          "epoch": 3,
+          "seconds": 76.06793233304052,
+          "train_loss": 0.18470909405347904,
+          "val_accuracy": 0.8960882390663075,
+          "val_loss": 0.3331759506859228
+        },
+        {
+          "epoch": 4,
+          "seconds": 80.75938641699031,
+          "train_loss": 0.17357403905164945,
+          "val_accuracy": 0.8983711683981018,
+          "val_loss": 0.32503212963799355
+        }
+      ],
+      "labels": [
+        "last",
+        "first"
+      ],
+      "num_layers": 2,
+      "seq_len": 47,
+      "sha256": "b6dac3b40e3430a36dd33b80568dbeccc9b20277a2014d60d2a3241ac740c249",
+      "size": 1087864
     },
-    "parsernaam_pos.pt": {
-      "format": "pytorch_state_dict",
-      "sha256": "3c96af1ed82993b0b7f9ba4189560125c7ebe0f14c822232a9c62d116fa48126",
-      "size": 4273481
+    "parsernaam_pos.safetensors": {
+      "best_val_loss": 0.17389483790848778,
+      "encoding": "padding0_unknown1",
+      "format": "safetensors",
+      "hidden_size": 128,
+      "history": [
+        {
+          "epoch": 1,
+          "seconds": 86.63008949998766,
+          "train_loss": 0.21930260953137407,
+          "val_accuracy": 0.9244924492449245,
+          "val_loss": 0.20442166977679088
+        },
+        {
+          "epoch": 2,
+          "seconds": 92.31577558297431,
+          "train_loss": 0.1092346808815615,
+          "val_accuracy": 0.9366936693669367,
+          "val_loss": 0.17389483790848778
+        },
+        {
+          "epoch": 3,
+          "seconds": 86.03304662497249,
+          "train_loss": 0.08807948043822651,
+          "val_accuracy": 0.9383438343834384,
+          "val_loss": 0.1778412873801118
+        },
+        {
+          "epoch": 4,
+          "seconds": 78.92653579096077,
+          "train_loss": 0.07688415111049114,
+          "val_accuracy": 0.9376937693769377,
+          "val_loss": 0.17825279770159508
+        },
+        {
+          "epoch": 5,
+          "seconds": 91.05925062502502,
+          "train_loss": 0.06865195102132027,
+          "val_accuracy": 0.9394439443944395,
+          "val_loss": 0.18404391032419798
+        }
+      ],
+      "labels": [
+        "last_first",
+        "first_last"
+      ],
+      "num_layers": 2,
+      "seq_len": 47,
+      "sha256": "bc5d6c2714ff5e2d7e027d99eca284164607320d625ecf11d90c9dc42f62ff98",
+      "size": 1087864
     },
     "vocabulary.parquet": {
-      "columns": {
-        "token": "string"
-      },
       "format": "parquet",
-      "rows": 55,
-      "sha256": "9ce06bbf4a9608fc09849c707bb0ca516bbe2ef509cbbb14c86548d26c2c5bd5",
-      "size": 591
+      "sha256": "cbdaa149119994590f1bc0ee30ccce2592c3cb544d249a9b2a57f97ac4475634",
+      "size": 1384
     }
   },
-  "intended_use": "Explore first/last ordering in name strings when separate fields are unavailable.",
-  "limitations": [
-    "Scores are model outputs, not calibrated guarantees.",
-    "The four labels cannot represent all naming conventions.",
-    "Training-record errors and population imbalance can affect predictions."
-  ],
-  "reference_dataset": {
-    "description": "Early 2022 Florida voter registration names",
-    "url": "https://doi.org/10.7910/DVN/UBIG3F"
+  "evaluation": {
+    "gates": {
+      "case_invariance": true,
+      "case_violations": 0,
+      "fixed_beats_published": true,
+      "retrained_beats_both_baselines": true
+    },
+    "nc_accuracy": {
+      "fixed_inference": {
+        "ordering": 0.984297644646697,
+        "single_distinct_name": 0.8727575702237856,
+        "single_record_weighted": 0.8091867469879518
+      },
+      "frequency": {
+        "ordering": 0.8709306395959394,
+        "single_distinct_name": 0.6692071293141021,
+        "single_record_weighted": 0.8487951807228916
+      },
+      "majority": {
+        "ordering": 0.5000250037505626,
+        "single_distinct_name": 0.414052074446409,
+        "single_record_weighted": 0.5004518072289157
+      },
+      "published": {
+        "ordering": 0.5320298044706706,
+        "single_distinct_name": 0.511681841862242,
+        "single_record_weighted": 0.541741967871486
+      },
+      "retrained": {
+        "ordering": 0.9624443666549982,
+        "single_distinct_name": 0.7959453486087151,
+        "single_record_weighted": 0.909437751004016
+      }
+    },
+    "report_sha256": "898639345fe1bca97aeb8322913de2f072418aefd3934b29fbdecf00cf249fda"
   },
+  "intended_use": "Explore first/last field patterns and ordering in Latin-script name strings.",
+  "limitations": [
+    "Raw model scores are not calibrated guarantees.",
+    "Four labels cannot represent every naming convention.",
+    "New weights improve record-weighted single-name accuracy, but fixed original weights remain stronger on distinct-name and ordering evaluation."
+  ],
+  "normalization": "casefold/uppercase/NFKD/drop accents/Latin apostrophe hyphen whitespace/title v1",
   "repository": "gojiberries/parsernaam",
-  "revision": "4061401e5cf9d5b903d0891fcc3c9381540883e5"
+  "revision": "88e5460c3db20b68ce1d7b33e04a8c241de14a45",
+  "revision_policy": "Use the immutable commit containing this manifest; released packages pin that commit.",
+  "schema_version": 2,
+  "training": {
+    "code_sha256": {
+      "src/parsernaam/__init__.py": "db90dbbed366d4b9ffb592c0b186c401d96ac5c89e0744337c08566cf3ed878d",
+      "src/parsernaam/_resources.py": "bf7b100ba70fe7afa90e8f89e8ddf5ce1dc172e0116a8327117e413d66f52fdf",
+      "src/parsernaam/config.py": "e8ea0db2ae2b04d6f6ebb6c47df911ef623de0ab4fe0efbe2daae1938f52b802",
+      "src/parsernaam/model.py": "1e385660d0a23a5e0d739c0b6578adc24b6586931be88168de9211aaaada245e",
+      "src/parsernaam/naam.py": "86572dce8cb85cbd1e13c53865d2e839c03f24883f6c2243495a235f8a80c92c",
+      "src/parsernaam/parse.py": "08088c23692065a2f22cb9f894333556461e42eaf5c2cf3e37a43ead3a0e077b",
+      "src/parsernaam/text.py": "c15e9d84022b0a49b7b7759367dcd6b59ab9253b05e97f0c8510919d61554e46",
+      "src/parsernaam/utils.py": "3dd259c7cca5708e5c8365d996440ace8d9e37ccb87ff6d9cfe70b65d7736aa7",
+      "training/__init__.py": "6ce40da307d0049079998021d969985085a9fdb15da14e023f604082ce750e5a",
+      "training/common.py": "d4ee6a49994fd43da5b786b60ee307d5a1c69e1b5095ceaced233d6e110f5a75",
+      "training/evaluate.py": "4946762fced3a08a67bb595dcb5b6e2aef3be26a1a913619a93e1f925cc4c949",
+      "training/legacy.py": "a836e01cb7c5611c5bc09b9f5fd1ecc823546afdecaf83acebe74aea9ff0e5d4",
+      "training/prepare.py": "4064222dc4ca40ca094a79f1532c9f56b6aa154591983f02a45301507f31943a",
+      "training/tasks.py": "0b3e2b9391e663d68d3a03f4506f48ab7e82b063082dbe25edd2d8fe23bc78f1",
+      "training/train.py": "6e06b9dcbf62b2945858668785518777527b1267631ba43318257fcec217643f"
+    },
+    "git_commit": "4f49908137b18239bfc89e18ef4192da2a0d4b55",
+    "parameters": {
+      "batch_size": 1024,
+      "data": "training/data",
+      "device": "mps",
+      "epochs": 15,
+      "hidden_size": 128,
+      "layers": 2,
+      "learning_rate": 0.001,
+      "output": "training/runs/release-artifacts",
+      "patience": 3,
+      "seed": 20260929,
+      "seq_len": 47
+    },
+    "preparation_sha256": "db994dd76195f45ef37f4556341961ad7fe38c1b949941ce4e576b05824541df",
+    "python": "3.13.2",
+    "torch": "2.14.0"
+  }
 }

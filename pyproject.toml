@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "parsernaam"
-version = "0.3.0"
+version = "0.4.0"
 description = "ML-assisted first/last ordering for name strings"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -24,9 +24,10 @@ classifiers = [
   "Topic :: Text Processing :: Linguistic",
   "Topic :: Utilities"
 ]
-keywords = ["name-parser", "names", "machine-learning", "nlp", "indian-names", "lstm", "pytorch"]
+keywords = ["name-parser", "names", "machine-learning", "nlp", "lstm", "pytorch"]
 dependencies = [
   "torch>=2.13,<3",
+  "safetensors>=0.7,<1",
   "pandas>=3,<4",
   "huggingface-hub>=1.27",
   "pyarrow>=25",
@@ -39,6 +40,7 @@ web = [
 ]
 
 [dependency-groups]
+train = ["numpy>=2", "pyarrow>=25"]
 dev = ["pytest>=7.0", "pytest-cov>=4.0", "pytest-xdist>=3.0", "ruff>=0.7.0", "pre-commit>=3.0", "pyright>=1.1.390", "pydoclint>=0.5"]
 docs = [
     "sphinx>=7.0",
@@ -68,7 +70,6 @@ parse_names = "parsernaam.parse:main"
 [tool.ruff]
 line-length = 88
 target-version = "py312"
-extend-exclude = ["model_training"]
 
 [tool.ruff.lint]
 external = ["DOC"]
@@ -93,7 +94,7 @@ convention = "google"
 minversion = "7.0"
 testpaths = ["tests"]
 python_files = "test_*.py"
-addopts = ["-ra", "--strict-markers", "--cov=parsernaam", "--cov-report=term-missing", "-m", "not live", "--strict-config"]
+addopts = ["-ra", "--strict-markers", "--cov", "--cov-report=term-missing", "-m", "not live", "--strict-config", "--cov-fail-under=95"]
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
     "live: downloads the pinned Hugging Face artifacts",
@@ -104,7 +105,7 @@ log_level = "INFO"
 xfail_strict = true
 filterwarnings = ["error"]
 [tool.coverage.run]
-source = ["src/parsernaam"]
+source_pkgs = ["parsernaam"]
 branch = true
 
 [tool.coverage.report]
@@ -120,12 +121,14 @@ exclude_lines = [
 
 # Deptry configuration  
 [tool.deptry]
-extend_exclude = ["model_training", "docs", "htmlcov"]
+extend_exclude = ["docs", "htmlcov"]
 known_first_party = ["parsernaam"]
 
 [tool.pyright]
 include = ["src"]
 typeCheckingMode = "standard"
+venvPath = "."
+venv = ".venv"
 
 [tool.pydoclint]
 style = "google"
