@@ -145,7 +145,7 @@
   ],
   "normalization": "casefold/uppercase/NFKD/drop accents/Latin apostrophe hyphen whitespace/title v1",
   "repository": "gojiberries/parsernaam",
-  "revision": "4061401e5cf9d5b903d0891fcc3c9381540883e5",
+  "revision": "88e5460c3db20b68ce1d7b33e04a8c241de14a45",
   "revision_policy": "Use the immutable commit containing this manifest; released packages pin that commit.",
   "schema_version": 2,
   "training": {
