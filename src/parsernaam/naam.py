@@ -1,6 +1,7 @@
 """Batched ML inference for first/last name patterns."""
 
 import json
+import os
 from pathlib import Path
 from typing import Any, ClassVar, TypedDict
 
@@ -9,7 +10,7 @@ import pyarrow.parquet as pq
 import torch
 from safetensors.torch import load_file
 
-from ._resources import MODEL_MANIFEST, resolve_model
+from ._resources import MODEL_DIR_ENV, MODEL_MANIFEST, resolve_model
 from .model import LSTM
 from .text import encode, normalize
 
@@ -94,10 +95,13 @@ class Parsernaam:
                 if not rows:
                     continue
                 path = resolve_model(filename)
-                local_manifest = Path(path).parent / "model_manifest.json"
+                override = os.environ.get(MODEL_DIR_ENV)
+                local_manifest = (
+                    Path(override) / "model_manifest.json" if override else None
+                )
                 manifest = (
                     json.loads(local_manifest.read_text())
-                    if local_manifest.is_file()
+                    if local_manifest is not None and local_manifest.is_file()
                     else MODEL_MANIFEST
                 )
                 metadata: dict[str, Any] = manifest["artifacts"][Path(path).name]

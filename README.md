@@ -84,6 +84,9 @@ their SHA-256 hashes against the packaged `model_manifest.json`. Set
 Face client honors its standard authentication configuration, including
 `HF_TOKEN`.
 
+Hub inference settings come from the packaged manifest. A manifest in an
+explicit local override supplies that local model's settings.
+
 The published notebooks use early 2022 Florida voter registrations at
 [Harvard Dataverse](https://doi.org/10.7910/DVN/UBIG3F) and a US Census surname
 list. They do not establish Indian training provenance. Their validation and
@@ -145,6 +148,8 @@ in the table. Record-weighted single-name accuracy improves over fixed original
 weights, but distinct-name and ordering accuracy are lower. On lookup-supported
 distinct NC names, frequency lookup scores 92.0% versus the retrained model's
 81.3%. These tradeoffs matter when choosing whether the package suits a dataset.
+FL test surnames are absent from the training lookup by design, which explains
+its poor FL scores; NC measures transfer to a different state's records.
 
 ## Development
 

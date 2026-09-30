@@ -67,8 +67,8 @@ for ordering. No post-hoc calibration was fitted.
 The [training pipeline](https://github.com/appeler/parsernaam/tree/8b35dae96de9401972c516c2fde78a73f4c539d5/training)
 contains preparation, training, historical comparison, and evaluation scripts.
 Source hashes, parameters, histories, code hashes, and artifact hashes are in
-the manifest and aggregate evaluation JSON. Parameter tensors were exported
-to SafeTensors and checked exactly against the evaluated PyTorch state dictionaries.
+the manifest and aggregate evaluation JSON. Released weights are saved directly
+as SafeTensors from a committed training implementation.
 Raw registration records and source-linked sample rows are not distributed here.
 
 ## Evaluation

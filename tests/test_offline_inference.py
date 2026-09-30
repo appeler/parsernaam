@@ -225,3 +225,27 @@ def test_input_sensitive_models_preserve_case_and_batch_results(
     )
     assert batch[3]["prob"] == pytest.approx(batch[4]["prob"], abs=1e-6)
     assert batch[3]["prob"] != pytest.approx(batch[5]["prob"], abs=1e-6)
+
+
+def test_remote_metadata_uses_the_packaged_manifest(local_models, monkeypatch):
+    from unittest.mock import patch
+
+    from parsernaam import _resources, naam
+
+    manifest_path = local_models / "model_manifest.json"
+    pinned = json.loads(manifest_path.read_text())
+    adjacent = json.loads(manifest_path.read_text())
+    for filename in ["parsernaam.safetensors", "parsernaam_pos.safetensors"]:
+        adjacent["artifacts"][filename]["labels"].reverse()
+    manifest_path.write_text(json.dumps(adjacent))
+    monkeypatch.delenv("PARSERNAAM_MODEL_DIR")
+    monkeypatch.setattr(_resources, "MODEL_MANIFEST", pinned)
+    monkeypatch.setattr(naam, "MODEL_MANIFEST", pinned)
+    with patch(
+        "huggingface_hub.hf_hub_download",
+        side_effect=lambda repo, filename, **kwargs: str(local_models / filename),
+    ):
+        rows = parse_names(pd.DataFrame({"name": ["Smith", "John Smith"]}))[
+            "parsed_name"
+        ]
+    assert [row["type"] for row in rows] == ["last", "last_first"]
