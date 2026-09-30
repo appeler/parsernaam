@@ -148,8 +148,8 @@ in the table. Record-weighted single-name accuracy improves over fixed original
 weights, but distinct-name and ordering accuracy are lower. On lookup-supported
 distinct NC names, frequency lookup scores 92.0% versus the retrained model's
 81.3%. These tradeoffs matter when choosing whether the package suits a dataset.
-FL test surnames are absent from the training lookup by design, which explains
-its poor FL scores; NC measures transfer to a different state's records.
+FL test surnames have no training surname counts by design, which explains
+the lookup's poor FL scores; NC measures transfer to a different state's records.
 
 ## Development
 
