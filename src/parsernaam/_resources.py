@@ -39,12 +39,28 @@ def resolve_model(filename: str) -> str:
 
     Raises:
         ValueError: If a remote artifact is not declared in the manifest.
-        RuntimeError: If a downloaded artifact fails integrity verification.
+        RuntimeError: If an artifact fails integrity verification or is missing.
     """
     filename = filename.removeprefix("models/")
     override = os.environ.get(MODEL_DIR_ENV)
     if override:
         candidate = Path(override) / filename
+        manifest_path = Path(override) / "model_manifest.json"
+        if manifest_path.is_file():
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            artifact = manifest["artifacts"].get(filename)
+            if artifact is None:
+                raise ValueError(f"Unknown local model artifact: {filename}")
+            if not candidate.is_file():
+                raise RuntimeError(f"Missing local model artifact: {filename}")
+            if (
+                candidate.stat().st_size != artifact["size"]
+                or _sha256(candidate) != artifact["sha256"]
+            ):
+                raise RuntimeError(
+                    f"Model artifact failed its integrity check: {filename}"
+                )
+            return str(candidate)
         if candidate.is_file():
             return str(candidate)
 

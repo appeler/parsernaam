@@ -13,12 +13,12 @@ def test_local_override_avoids_network(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     """An explicit model directory takes precedence over the Hub."""
-    model = tmp_path / "parsernaam.pt"
+    model = tmp_path / "parsernaam.safetensors"
     model.write_bytes(b"weights")
     monkeypatch.setenv("PARSERNAAM_MODEL_DIR", str(tmp_path))
 
     with patch("huggingface_hub.hf_hub_download") as download:
-        assert resolve_model("models/parsernaam.pt") == str(model)
+        assert resolve_model("models/parsernaam.safetensors") == str(model)
     download.assert_not_called()
 
 
@@ -28,17 +28,19 @@ def test_missing_local_artifact_uses_exact_pin(
     """The fallback download uses the declared repository and revision."""
     monkeypatch.setenv("PARSERNAAM_MODEL_DIR", str(tmp_path))
 
-    downloaded = tmp_path / "downloaded.pt"
+    downloaded = tmp_path / "downloaded.safetensors"
     downloaded.write_bytes(b"downloaded weights")
-    expected_hash = MODEL_MANIFEST["artifacts"]["parsernaam.pt"]["sha256"]
+    expected_hash = MODEL_MANIFEST["artifacts"]["parsernaam.safetensors"]["sha256"]
     with (
         patch(
             "huggingface_hub.hf_hub_download", return_value=str(downloaded)
         ) as download,
         patch("parsernaam._resources._sha256", return_value=expected_hash),
     ):
-        assert resolve_model("parsernaam.pt") == str(downloaded)
-    download.assert_called_once_with(HF_REPO, "parsernaam.pt", revision=HF_REVISION)
+        assert resolve_model("parsernaam.safetensors") == str(downloaded)
+    download.assert_called_once_with(
+        HF_REPO, "parsernaam.safetensors", revision=HF_REVISION
+    )
 
 
 def test_revision_is_an_immutable_commit() -> None:
@@ -65,13 +67,13 @@ def test_download_hash_mismatch_is_rejected(
 ) -> None:
     """A corrupt downloaded artifact cannot reach the model loader."""
     monkeypatch.delenv("PARSERNAAM_MODEL_DIR", raising=False)
-    downloaded = tmp_path / "parsernaam.pt"
+    downloaded = tmp_path / "parsernaam.safetensors"
     downloaded.write_bytes(b"corrupt")
     with (
         patch("huggingface_hub.hf_hub_download", return_value=str(downloaded)),
         pytest.raises(RuntimeError, match="integrity check"),
     ):
-        resolve_model("parsernaam.pt")
+        resolve_model("parsernaam.safetensors")
 
 
 @pytest.mark.live
@@ -80,8 +82,33 @@ def test_pinned_revision_contains_every_artifact() -> None:
     from huggingface_hub import hf_hub_download, list_repo_files
 
     published = set(list_repo_files(HF_REPO, revision=HF_REVISION))
-    assert {"parsernaam.pt", "parsernaam_pos.pt", "vocabulary.parquet"} <= published
+    assert {
+        "parsernaam.safetensors",
+        "parsernaam_pos.safetensors",
+        "vocabulary.parquet",
+    } <= published
     for filename, metadata in MODEL_MANIFEST["artifacts"].items():
         downloaded = Path(hf_hub_download(HF_REPO, filename, revision=HF_REVISION))
         assert hashlib.sha256(downloaded.read_bytes()).hexdigest() == metadata["sha256"]
         assert downloaded.stat().st_size == metadata["size"]
+
+
+def test_local_manifest_integrity_and_missing_artifacts(tmp_path, monkeypatch):
+    import json
+
+    artifact = tmp_path / "parsernaam.safetensors"
+    artifact.write_bytes(b"weights")
+    metadata = {"sha256": hashlib.sha256(b"weights").hexdigest(), "size": 7}
+    (tmp_path / "model_manifest.json").write_text(
+        json.dumps({"artifacts": {"parsernaam.safetensors": metadata}})
+    )
+    monkeypatch.setenv("PARSERNAAM_MODEL_DIR", str(tmp_path))
+    assert resolve_model("parsernaam.safetensors") == str(artifact)
+    artifact.write_bytes(b"corrupt")
+    with pytest.raises(RuntimeError, match="integrity check"):
+        resolve_model("parsernaam.safetensors")
+    artifact.unlink()
+    with pytest.raises(RuntimeError, match="Missing local"):
+        resolve_model("parsernaam.safetensors")
+    with pytest.raises(ValueError, match="Unknown local"):
+        resolve_model("unlisted.pt")

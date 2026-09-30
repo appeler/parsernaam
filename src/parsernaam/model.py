@@ -13,7 +13,11 @@ class LSTM(nn.Module):
     """
 
     def __init__(
-        self, input_size: int, hidden_size: int, output_size: int, num_layers: int = 1
+        self,
+        input_size: int,
+        hidden_size: int,
+        output_size: int,
+        num_layers: int = 1,
     ):
         """Initialize LSTM model.
 
@@ -27,9 +31,7 @@ class LSTM(nn.Module):
         self.hidden_size = hidden_size
         self.num_layers = num_layers
 
-        # The nn.Embedding layer returns a new tensor with dimension (sequence_length, 1, hidden_size)
-        self.embedding = nn.Embedding(input_size, hidden_size)
-        # LSTM layer expects a tensor of dimension (batch_size, sequence_length, hidden_size).
+        self.embedding = nn.Embedding(input_size, hidden_size, padding_idx=0)
         self.lstm = nn.LSTM(hidden_size, hidden_size, num_layers, batch_first=True)
         self.fc = nn.Linear(hidden_size, output_size)
         self.softmax = nn.LogSoftmax(dim=1)
@@ -44,13 +46,9 @@ class LSTM(nn.Module):
             Log-softmax probabilities for each class [batch_size, num_classes]
         """
         embedded = self.embedding(input_tensor)
-        # embedded = embedded.view(embedded.shape[0],-1,embedded.shape[3])
-        h0 = torch.zeros(self.num_layers, embedded.size(0), self.hidden_size).to(
-            input_tensor.device
+        lengths = input_tensor.ne(0).sum(dim=1).clamp(min=1).cpu()
+        packed = nn.utils.rnn.pack_padded_sequence(
+            embedded, lengths, batch_first=True, enforce_sorted=False
         )
-        c0 = torch.zeros(self.num_layers, embedded.size(0), self.hidden_size).to(
-            input_tensor.device
-        )
-        out, _ = self.lstm(embedded, (h0, c0))
-        out = out[:, -1, :]  # get the output of the last time step
-        return self.softmax(self.fc(out))
+        _, (hidden, _) = self.lstm(packed)
+        return self.softmax(self.fc(hidden[-1]))

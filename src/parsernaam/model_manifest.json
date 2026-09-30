@@ -1,35 +1,295 @@
 {
   "artifacts": {
-    "parsernaam.pt": {
-      "format": "pytorch_state_dict",
-      "sha256": "cca072cd184be3f78a7ba53cdc2891fbc1dbb454f451cbca90d56aa7ab7333c8",
-      "size": 4273457
+    "parsernaam.safetensors": {
+      "best_val_loss": 0.3050972055414938,
+      "encoding": "padding0_unknown1",
+      "format": "safetensors",
+      "hidden_size": 128,
+      "history": [
+        {
+          "epoch": 1,
+          "seconds": 72.34577520901803,
+          "train_loss": 0.2894122131312552,
+          "val_accuracy": 0.8942413748877773,
+          "val_loss": 0.3050972055414938
+        },
+        {
+          "epoch": 2,
+          "seconds": 79.638347583008,
+          "train_loss": 0.20339492725404656,
+          "val_accuracy": 0.8944465820187252,
+          "val_loss": 0.3133471882242384
+        },
+        {
+          "epoch": 3,
+          "seconds": 80.5930165000027,
+          "train_loss": 0.1847090932330783,
+          "val_accuracy": 0.8960882390663075,
+          "val_loss": 0.33317601946021896
+        },
+        {
+          "epoch": 4,
+          "seconds": 86.86808704200666,
+          "train_loss": 0.17357404001840826,
+          "val_accuracy": 0.8983711683981018,
+          "val_loss": 0.32503219360386054
+        }
+      ],
+      "labels": [
+        "last",
+        "first"
+      ],
+      "num_layers": 2,
+      "seq_len": 47,
+      "sha256": "abcda57caf7e284782b5e2ff22b7b5fcfa1fbc5d65b56dbb7a1d47f2894ed879",
+      "size": 1087864
     },
-    "parsernaam_pos.pt": {
-      "format": "pytorch_state_dict",
-      "sha256": "3c96af1ed82993b0b7f9ba4189560125c7ebe0f14c822232a9c62d116fa48126",
-      "size": 4273481
+    "parsernaam_pos.safetensors": {
+      "best_val_loss": 0.17389483220822358,
+      "encoding": "padding0_unknown1",
+      "format": "safetensors",
+      "hidden_size": 128,
+      "history": [
+        {
+          "epoch": 1,
+          "seconds": 97.65819454204757,
+          "train_loss": 0.21930261099241577,
+          "val_accuracy": 0.9244924492449245,
+          "val_loss": 0.20442165182356667
+        },
+        {
+          "epoch": 2,
+          "seconds": 84.50481883296743,
+          "train_loss": 0.10923468095786136,
+          "val_accuracy": 0.9366936693669367,
+          "val_loss": 0.17389483220822358
+        },
+        {
+          "epoch": 3,
+          "seconds": 97.47400824999204,
+          "train_loss": 0.08807948105635596,
+          "val_accuracy": 0.9383438343834384,
+          "val_loss": 0.1778412832058791
+        },
+        {
+          "epoch": 4,
+          "seconds": 96.53360683302162,
+          "train_loss": 0.07688415140203632,
+          "val_accuracy": 0.9376937693769377,
+          "val_loss": 0.17825279159746904
+        },
+        {
+          "epoch": 5,
+          "seconds": 83.49829254200449,
+          "train_loss": 0.06865195160310669,
+          "val_accuracy": 0.9394439443944395,
+          "val_loss": 0.18404390460157982
+        }
+      ],
+      "labels": [
+        "last_first",
+        "first_last"
+      ],
+      "num_layers": 2,
+      "seq_len": 47,
+      "sha256": "350ec57893856edeb84278490ae5dd20d891fac4379ebfec83572bd9c9e057b9",
+      "size": 1087864
     },
     "vocabulary.parquet": {
-      "columns": {
-        "token": "string"
-      },
       "format": "parquet",
-      "rows": 55,
-      "sha256": "9ce06bbf4a9608fc09849c707bb0ca516bbe2ef509cbbb14c86548d26c2c5bd5",
-      "size": 591
+      "sha256": "1a5cf5be114467824407fdea6b588eb8082402caed3d61765e17041ad1d7997d",
+      "size": 1384
     }
   },
-  "intended_use": "Explore first/last ordering in name strings when separate fields are unavailable.",
-  "limitations": [
-    "Scores are model outputs, not calibrated guarantees.",
-    "The four labels cannot represent all naming conventions.",
-    "Training-record errors and population imbalance can affect predictions."
-  ],
-  "reference_dataset": {
-    "description": "Early 2022 Florida voter registration names",
-    "url": "https://doi.org/10.7910/DVN/UBIG3F"
+  "conversion": {
+    "method": "SafeTensors export; every parameter tensor compared exactly with the evaluated PyTorch state dictionary",
+    "source_artifacts": {
+      "parsernaam.pt": {
+        "best_val_loss": 0.3050972055414938,
+        "encoding": "padding0_unknown1",
+        "format": "pytorch_state_dict",
+        "hidden_size": 128,
+        "history": [
+          {
+            "epoch": 1,
+            "seconds": 72.34577520901803,
+            "train_loss": 0.2894122131312552,
+            "val_accuracy": 0.8942413748877773,
+            "val_loss": 0.3050972055414938
+          },
+          {
+            "epoch": 2,
+            "seconds": 79.638347583008,
+            "train_loss": 0.20339492725404656,
+            "val_accuracy": 0.8944465820187252,
+            "val_loss": 0.3133471882242384
+          },
+          {
+            "epoch": 3,
+            "seconds": 80.5930165000027,
+            "train_loss": 0.1847090932330783,
+            "val_accuracy": 0.8960882390663075,
+            "val_loss": 0.33317601946021896
+          },
+          {
+            "epoch": 4,
+            "seconds": 86.86808704200666,
+            "train_loss": 0.17357404001840826,
+            "val_accuracy": 0.8983711683981018,
+            "val_loss": 0.32503219360386054
+          }
+        ],
+        "labels": [
+          "last",
+          "first"
+        ],
+        "num_layers": 2,
+        "seq_len": 47,
+        "sha256": "a902f674dd1545b9a7b780f1b42fe7931e5941dc3b4e829c101afa0b28697243",
+        "size": 1091253
+      },
+      "parsernaam_pos.pt": {
+        "best_val_loss": 0.17389483220822358,
+        "encoding": "padding0_unknown1",
+        "format": "pytorch_state_dict",
+        "hidden_size": 128,
+        "history": [
+          {
+            "epoch": 1,
+            "seconds": 97.65819454204757,
+            "train_loss": 0.21930261099241577,
+            "val_accuracy": 0.9244924492449245,
+            "val_loss": 0.20442165182356667
+          },
+          {
+            "epoch": 2,
+            "seconds": 84.50481883296743,
+            "train_loss": 0.10923468095786136,
+            "val_accuracy": 0.9366936693669367,
+            "val_loss": 0.17389483220822358
+          },
+          {
+            "epoch": 3,
+            "seconds": 97.47400824999204,
+            "train_loss": 0.08807948105635596,
+            "val_accuracy": 0.9383438343834384,
+            "val_loss": 0.1778412832058791
+          },
+          {
+            "epoch": 4,
+            "seconds": 96.53360683302162,
+            "train_loss": 0.07688415140203632,
+            "val_accuracy": 0.9376937693769377,
+            "val_loss": 0.17825279159746904
+          },
+          {
+            "epoch": 5,
+            "seconds": 83.49829254200449,
+            "train_loss": 0.06865195160310669,
+            "val_accuracy": 0.9394439443944395,
+            "val_loss": 0.18404390460157982
+          }
+        ],
+        "labels": [
+          "last_first",
+          "first_last"
+        ],
+        "num_layers": 2,
+        "seq_len": 47,
+        "sha256": "37893c206e9c438bf579cce2611d79e72831660f0828b31a34cfad442ee75d59",
+        "size": 1091321
+      },
+      "vocabulary.parquet": {
+        "format": "parquet",
+        "sha256": "1a5cf5be114467824407fdea6b588eb8082402caed3d61765e17041ad1d7997d",
+        "size": 1384
+      }
+    }
   },
+  "evaluation": {
+    "gates": {
+      "case_invariance": true,
+      "case_violations": 0,
+      "fixed_beats_published": true,
+      "retrained_beats_both_baselines": true
+    },
+    "nc_accuracy": {
+      "fixed_inference": {
+        "ordering": 0.984297644646697,
+        "single_distinct_name": 0.8727575702237856,
+        "single_record_weighted": 0.8091867469879518
+      },
+      "frequency": {
+        "ordering": 0.8709306395959394,
+        "single_distinct_name": 0.6692071293141021,
+        "single_record_weighted": 0.8487951807228916
+      },
+      "majority": {
+        "ordering": 0.5000250037505626,
+        "single_distinct_name": 0.414052074446409,
+        "single_record_weighted": 0.5004518072289157
+      },
+      "published": {
+        "ordering": 0.5320298044706706,
+        "single_distinct_name": 0.511681841862242,
+        "single_record_weighted": 0.541741967871486
+      },
+      "retrained": {
+        "ordering": 0.9624443666549982,
+        "single_distinct_name": 0.7959453486087151,
+        "single_record_weighted": 0.909437751004016
+      }
+    },
+    "report_sha256": "10dfec1f589a6c7245888abd986a123d650fc7632d2b87c0707d5187c5fc8e56"
+  },
+  "intended_use": "Explore first/last field patterns and ordering in Latin-script name strings.",
+  "limitations": [
+    "Raw model scores are not calibrated guarantees.",
+    "Four labels cannot represent every naming convention.",
+    "New weights improve record-weighted single-name accuracy, but fixed original weights remain stronger on distinct-name and ordering evaluation."
+  ],
+  "normalization": "casefold/uppercase/NFKD/drop accents/Latin apostrophe hyphen whitespace/title v1",
   "repository": "gojiberries/parsernaam",
-  "revision": "4061401e5cf9d5b903d0891fcc3c9381540883e5"
+  "revision": "4061401e5cf9d5b903d0891fcc3c9381540883e5",
+  "revision_policy": "Use the immutable commit containing this manifest; released packages pin that commit.",
+  "schema_version": 2,
+  "training": {
+    "code_sha256": {
+      "src/parsernaam/__init__.py": "db90dbbed366d4b9ffb592c0b186c401d96ac5c89e0744337c08566cf3ed878d",
+      "src/parsernaam/_resources.py": "bf7b100ba70fe7afa90e8f89e8ddf5ce1dc172e0116a8327117e413d66f52fdf",
+      "src/parsernaam/config.py": "5410cbca633257a22f156d9334fb59dac7fcc8fb649851333d1dcb6ac627f44c",
+      "src/parsernaam/model.py": "6851673e1ff1a7b36e7766462b8db37e0bca7b185c4f72e506c311679f8f2213",
+      "src/parsernaam/naam.py": "8040e84433d381b8e9a3a9cf1942876c1b7e9dd541ed8e015bd6afa9079dacd0",
+      "src/parsernaam/parse.py": "08088c23692065a2f22cb9f894333556461e42eaf5c2cf3e37a43ead3a0e077b",
+      "src/parsernaam/text.py": "62581c729c7b3945330f699969338c194338a891c6cf695813bd04022ed55541",
+      "src/parsernaam/utils.py": "3dd259c7cca5708e5c8365d996440ace8d9e37ccb87ff6d9cfe70b65d7736aa7",
+      "training/__init__.py": "6ce40da307d0049079998021d969985085a9fdb15da14e023f604082ce750e5a",
+      "training/common.py": "d4ee6a49994fd43da5b786b60ee307d5a1c69e1b5095ceaced233d6e110f5a75",
+      "training/evaluate.py": "32f02c5c838f0dc1cf05da46f4885ba42c07c818f23dea3787c83418f1095888",
+      "training/prepare.py": "4064222dc4ca40ca094a79f1532c9f56b6aa154591983f02a45301507f31943a",
+      "training/tasks.py": "0b3e2b9391e663d68d3a03f4506f48ab7e82b063082dbe25edd2d8fe23bc78f1",
+      "training/train.py": "ad8055f866590ea86a94ba413fbec88551e58fdb9263d6daaacdf256eca6e3be"
+    },
+    "git_commit": "0297ed094eca2ddc8d67c04a4b9b1e1b0b98da35",
+    "normalization_equivalence_check": {
+      "change": "Casefold before uppercase also handles capital sharp-s U+1E9E. Full FL and NC raw files contain zero U+1E9E; prepared values and encoding are unchanged.",
+      "inference_preprocessing_sha256": "e0f68e3fd51beff456ad419d45a51095d6c846ae828e1db389c2b95b8be7d5c1"
+    },
+    "parameters": {
+      "batch_size": 1024,
+      "data": "training/data",
+      "device": "mps",
+      "epochs": 15,
+      "hidden_size": 128,
+      "layers": 2,
+      "learning_rate": 0.001,
+      "output": "training/artifacts",
+      "patience": 3,
+      "seed": 20260929,
+      "seq_len": 47
+    },
+    "preparation_sha256": "db994dd76195f45ef37f4556341961ad7fe38c1b949941ce4e576b05824541df",
+    "python": "3.13.2",
+    "torch": "2.14.0"
+  }
 }
