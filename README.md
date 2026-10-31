@@ -1,4 +1,4 @@
-# Parsernaam
+# parsernaam: first name or last name?
 
 [![CI](https://github.com/appeler/parsernaam/actions/workflows/ci.yml/badge.svg)](https://github.com/appeler/parsernaam/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/parsernaam.svg)](https://pypi.org/project/parsernaam/)
